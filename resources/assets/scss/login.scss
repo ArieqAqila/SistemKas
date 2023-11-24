@@ -1,0 +1,59 @@
+*{
+    font-family: 'Asap', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+body{
+    background: #FAFAFA;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    background: url('../../images/white background.jpg');
+    background-size: cover;
+}
+
+p, ul{
+    margin: 0;
+    padding: 0;
+}
+
+.sk-ff-asap{
+    font-family: 'Asap', sans-serif;
+}
+
+.sk-fw-light{
+    font-weight: 300;
+}
+
+.sk-fw-regular{
+    font-weight: 400;
+}
+
+.sk-fw-medium{
+    font-weight: 500;
+}
+
+.sk-fw-semiBold{
+    font-weight: 600;
+}
+
+.sk-fw-bold{
+    font-weight: 700;
+}
+
+.login-container{
+    width: 24.6875rem;
+    height: 23.2875rem;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 3px solid #4BA586;
+    background: #FFF;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+}

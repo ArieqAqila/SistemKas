@@ -1,0 +1,133 @@
+@media (max-width: 992px) {
+    .sk-admin-container{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .sk-admin-card{
+        width: 90%;
+        height: 5.6875rem;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 5px 0;
+        
+
+        .sk-admin-card-title{
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .sk-admin-total-saldo{
+            font-size: 1.3rem;
+            margin-top: 0.9rem;
+        }
+    }
+
+    .sk-admin-table-container{
+        width: 90% !important;
+        font-size: 0.8rem;
+
+        .admin-table-header{
+            font-size: 1rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .top-navbar .left-topbar img{
+        width: 2.8375rem;
+        height: 2.8375rem;
+    }
+
+    .top-navbar .left-topbar div{
+        width: 10rem;
+    }
+
+    .top-navbar .right-topbar .topbar-caption{
+        font-size: 1.1rem;
+    }
+
+    .top-navbar .right-topbar .topbar-caption:last-child{
+        display: none;
+    }
+
+    .top-navbar .right-topbar .topbar-caption span{
+        font-size: 0.805rem;
+    }
+
+
+
+    .sidebar{
+        width: 100%;
+        align-items: center;
+        
+        .inner-sidebar{
+            width: fit-content;
+        }
+
+        .side-items{
+            margin-left: 0;
+        }
+    
+        
+    
+        .side-sub-items{
+            
+            
+            a{
+
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .closebar{
+        left: 90vw;
+    }
+
+    #sk-sidebar.aktif{
+        margin-left: -100vw;
+    }
+
+    #sk-konten{
+        width: 100%;
+        margin: 0;
+    }
+
+    .sk-admin-table-container.border-admin-primary{
+        margin-top: 5rem;
+    }
+}
+
+@media (max-width: 576px){
+    .closebar{
+        left: 88vw;
+    }
+
+    .sk-h-auto{
+        height: auto !important;
+    }
+}
+
+@media (max-width: 420px){
+    .sk-admin-table-container.border-admin-primary{
+        margin-top: 2rem;
+    }
+
+    .top-navbar .right-topbar{
+        padding: 0 1.2rem;
+    }
+
+    .top-navbar .right-topbar .topbar-caption{
+        font-size: 0.95rem;
+    }
+
+    .top-navbar .right-topbar .topbar-caption span{
+        font-size: 0.7rem;
+    }
+
+    .btn-admin-primary.sk-fs, .btn-admin-info.sk-fs{
+        font-size: 0.8rem;
+    }
+}

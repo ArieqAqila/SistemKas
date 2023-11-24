@@ -1,0 +1,24 @@
+$primary : #4BA586;
+$secondary : #131B20;
+$info : #0096C7;
+$warning :#FFBD09;
+$danger : #E63946;
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$custom-theme-colors : (
+    "admin-primary" : #4BA586,
+    "admin-secondary" : #736CED,
+    "admin-info" : #00A6FB,
+    "admin-warning" : #FFC300,
+    "admin-danger" : #E63946,
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.btn{
+    --bs-btn-border-width: transparent;
+}

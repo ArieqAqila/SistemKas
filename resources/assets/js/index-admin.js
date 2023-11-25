@@ -9,7 +9,7 @@ var table = new DataTable('#table-admin', {
 $('#table-admin').on('click', '.tagihan-warga', function () {
     let data = table.row(this).data();
     id_warga = $(this).data('id-warga');
-    $('#modal-tagihan').on('shown.bs.modal');
+    $('#modal-tagihan').modal('show');
     $("#id_user").val(id_warga);
     $("#namaWarga").val(data[1]);
 });

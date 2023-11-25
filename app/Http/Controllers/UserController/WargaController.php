@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,8 @@ class WargaController extends Controller
     public function index()
     {
         $warga = User::where('hak_akses', 'warga')->get();
-        return view('admin/pages/data-warga', compact('warga'));
+        $kategori = Kategori::all();
+        return view('admin/pages/data-warga', compact('warga', 'kategori'));
     }
 
     /**
@@ -33,7 +35,8 @@ class WargaController extends Controller
             'inNoTelpWarga' => 'required|max:15',
             'inAlamatWarga' => 'required',
             'inFotoWarga' => 'required|image|max:10000',
-            'inTglLahirWarga' => 'required'
+            'inTglLahirWarga' => 'required',
+            'inKategori' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -55,7 +58,7 @@ class WargaController extends Controller
 
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->save($path, $filename);
+            $image->save($path . $filename, 80);
 
             $warga->foto_profile = $filename;
         }
@@ -68,6 +71,8 @@ class WargaController extends Controller
         $warga->alamat = $request->inAlamatWarga;
         $warga->hak_akses = 'warga';
         $warga->is_first_login = true;
+        
+        $warga->id_kategori = $request->inKategori;
         $warga->save();
 
         if ($warga) {
@@ -115,7 +120,8 @@ class WargaController extends Controller
             'editNoTelpWarga' => 'required|max:15',
             'editAlamatWarga' => 'required|max:30',
             'editFotoWarga' => 'image|max:10000',
-            'editTglLahirWarga' => 'required'
+            'editTglLahirWarga' => 'required',
+            'editKategori' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -141,7 +147,7 @@ class WargaController extends Controller
 
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->save($path, $filename);
+            $image->save($path . $filename, 80);
 
             $user->foto_profile = $filename;
         }
@@ -154,6 +160,7 @@ class WargaController extends Controller
         $user->notelp = $request->editNoTelpWarga;
         $user->tgl_lahir = $request->editTglLahirWarga;
         $user->alamat = $request->editAlamatWarga;
+        $user->id_kategori = $request->editKategori;
         $user->update();
 
         return response()->json([

@@ -11,7 +11,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#modal-tagihan').on('hidden.bs.modal');
+                $('#modal-tagihan').modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -74,7 +74,7 @@ $(document).ready(function () {
                 "X-HTTP-Method-Override": "PUT"
             },
             success: function (response) {
-                $("#modal-edit-tagihan").on('hidden.bs.modal');
+                $("#modal-edit-tagihan").modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,

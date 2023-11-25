@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id_user');
+            $table->unsignedSmallInteger('id_kategori')->nullable();
             $table->string('username', 15)->unique();
             $table->string('password');
             $table->string('nama_user', 35);
@@ -22,6 +23,8 @@ return new class extends Migration
             $table->string('foto_profile', 100)->nullable();
             $table->string('hak_akses', 10);
             $table->boolean('is_first_login');
+
+            $table->foreign('id_kategori')->references('id_kategori')->on('kategori')->onDelete('cascade');
         });
     }
 

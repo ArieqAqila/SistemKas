@@ -55,7 +55,7 @@ class AdminController extends Controller
 
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $image->save($path . $filename);
+            $image->save($path . $filename, 80);
 
             $admin->foto_profile = $filename;
         }
@@ -141,7 +141,7 @@ class AdminController extends Controller
 
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $image->save($path . $filename);
+            $image->save($path . $filename, 80);
 
             $user->foto_profile = $filename;
         }

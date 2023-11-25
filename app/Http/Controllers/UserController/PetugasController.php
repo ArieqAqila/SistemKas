@@ -56,7 +56,7 @@ class PetugasController extends Controller
 
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->save($path, $filename);
+            $image->save($path . $filename, 80);
 
             $petugas->foto_profile = $filename;
         }
@@ -142,7 +142,7 @@ class PetugasController extends Controller
             
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->save($path, $filename);
+            $image->save($path . $filename, 80);
 
             $user->foto_profile = $filename;
         }

@@ -60,31 +60,32 @@
         <tbody>
             @php
                 $no = 1;
+                $nominal_tagihan = 0;
                 //dd(date('Y-m'));
             @endphp
             @forelse ($warga as $tagihan_warga)
-                <tr>
+                <tr class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}" data-nominal-tagihan="{{ $tagihan_warga->kategori->nominal_kategori }}">
                     @if ($tagihan_warga->tgl_tagihan === null || date_format(date_create($tagihan_warga->tgl_tagihan), 'Y-m') <= date('Y-m'))
-                        <td class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}">{{ $no++ }}</td>
-                        <td class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}">{{ $tagihan_warga->nama_user }}</td>
-                        <td class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}">
+                        <td  >{{ $no++ }}</td>
+                        <td  >{{ $tagihan_warga->nama_user }}</td>
+                        <td  >
                             @if ($tagihan_warga->tgl_tagihan === null)
                                 #
                             @else
                                 {!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}
                             @endif
                         </td>
-                        <td class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}">
+                        <td  >
                             @if ($tagihan_warga->nominal_tagihan === null)
                                 #
                             @else
                                 Rp{{ $tagihan_warga->nominal_tagihan }}
                             @endif
                         </td>
-                        <td class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}">#</td>
-                        <td class="tagihan-warga">Belum Lunas</td>
+                        <td  >#</td>
+                        <td  >Belum Lunas</td>
                         @admin
-                        <td>
+                        <td class="action-button">
                         @if ($tagihan_warga->id_tagihan === null)
                         <span class="table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                         @else
@@ -96,11 +97,11 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $tagihan_warga->nama_user }}</td>
                         <td>{!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}</td>
-                        <td>Rp{{ $tagihan_warga->nominal_tagihan }}</td>
+                        <td>Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
                         <td>Rp{{ $tagihan_warga->nominal_sumbangan }}</td>
                         <td>Lunas</td>
                         @admin
-                        <td><span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span></td>
+                        <td class="action-button"><span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span></td>
                         @endadmin
                     @endif
                 </tr>
@@ -153,22 +154,22 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required>
+                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required readonly>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Sumbangan</label>
+                    <label class="form-label">Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Sumbangan" class="form-control" name="inNominalSumbangan" id="inNominalSumbangan" required>
+                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="inNominalDibayar" id="inNominalDibayar" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Bayar Selama</label>
                     <div class="input-group">
-                        <input type="number" placeholder="Masukan Lamanya Tagihan" class="form-control" name="inTglTagihan" id="inTglTagihan" required>
+                        <input min="1" type="number" placeholder="Masukan Lamanya Tagihan" class="form-control" name="inTglTagihan" id="inTglTagihan" required>
                         <span class="input-group-text">
                             Bulan
                         </span>
@@ -217,12 +218,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Sumbangan</label>
+                    <label class="form-label">Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Sumbangan" class="form-control" name="editNominalSumbangan" id="editNominalSumbangan" required>
+                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="editNominalDibayar" id="editNominalDibayar" required>
                     </div>
                 </div>
                 <div class="mb-3">

@@ -106,7 +106,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Penulis Kegiatan" class="form-control" name="inPenulisKonten" id="inPenulisKonten" required>
+                        <input type="text" placeholder="Masukan Penulis Kegiatan" value="{{ Auth::user()->nama_user }}" class="form-control" name="inPenulisKonten" id="inPenulisKonten" required disabled>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -121,16 +121,13 @@
                 <div class="mb-3">
                     <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
                     <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
-                        </span>
                         <input type="file" accept="image/*" class="form-control" name="inGambarKegiatan" id="inGambarKegiatan" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Isi Konten</label>
                     <div class="input-group">
-                        <div id="editor"></div>
+                        <textarea class="form-control" name="inIsiKonten" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -139,7 +136,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="inTglLahirKonten" id="inTglLahirKonten" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="inTglRilisKonten" id="inTglRilisKonten" required>
                     </div>
                 </div>
             </div>
@@ -166,65 +163,45 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" name="id_konten" id="id_konten" hidden>
+                <input type="text" name="id_konten" id="id_konten" >
                 <div class="mb-3">
-                    <label class="form-label">Nama Konten</label>
+                    <label class="form-label">Penulis Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Nama Konten" class="form-control" name="editNamaKonten" id="editNamaKonten" required>
+                        <input type="text" placeholder="Masukan Penulis Kegiatan" class="form-control" name="editPenulisKonten" id="editPenulisKonten" required disabled>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Konten</label>
+                    <label class="form-label">Judul Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Username Konten" class="form-control" name="editUsernameKonten" id="editUsernameKonten" required>
+                        <input type="text" placeholder="Masukan Judul Kegiatan" class="form-control" name="editJudulKegiatan" id="editJudulKegiatan" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password Konten</label>
+                    <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
+                    <button type="button" class="btn btn-admin-primary text-white mb-2 preview-foto-konten"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
+                    <input type="file" accept="image/*" class="form-control" name="editGambarKegiatan" id="editGambarKegiatan">
+                    
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Isi Konten</label>
                     <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
-                        </span>
-                        <input type="text" placeholder="Masukan Password Konten" class="form-control" name="editPasswordKonten" id="editPasswordKonten">
+                        <textarea class="form-control" name="editIsiKonten" id="editIsiKonten" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Lahir Konten</label>
+                    <label class="form-label">Tanggal Konten Kegiatan Ditulis</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="editTglLahirKonten" id="editTglLahirKonten" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="editTglRilisKonten" id="editTglRilisKonten" required>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">No Telepon Konten</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-phone"></i>
-                        </span>
-                        <input type="text" placeholder="Masukan No Telepon Konten" class="form-control" name="editNoTelpKonten" id="editNoTelpKonten" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Alamat Konten</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </span>
-                        <input type="text" placeholder="Masukan Alamat Konten" class="form-control" name="editAlamatKonten" id="editAlamatKonten" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Foto Konten</label>
-                    <button class="btn btn-admin-primary text-white mb-2 preview-foto-konten"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
-                    <input type="file" accept="image/*" class="form-control" name="editFotoKonten" id="editFotoKonten">                                                
                 </div>
             </div>
             <div class="modal-footer">

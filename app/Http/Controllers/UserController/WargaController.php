@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 
 class WargaController extends Controller
@@ -49,9 +49,14 @@ class WargaController extends Controller
         if ($request->hasFile('inFotoWarga')) {
             $path = public_path()."\images\Profile Warga\\";
             $file = $request->file('inFotoWarga');
+
+            $image = Image::make($file);
+            $image->resize(250, 250);
+
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $file->save($path, $filename);
+
             $warga->foto_profile = $filename;
         }
 
@@ -130,9 +135,14 @@ class WargaController extends Controller
             }
 
             $file = $request->file('editFotoWarga');
+
+            $image = Image::make($file);
+            $image->resize(250, 250);
+
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $file->save($path, $filename);
+
             $user->foto_profile = $filename;
         }
 

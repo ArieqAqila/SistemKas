@@ -51,6 +51,10 @@ Route::middleware('auth', 'hak_akses:petugas,admin')->group(function() {
     Route::post('/admin/data-tagihan', [TagihanController::class, 'store'])->name('store-tagihan');
     
     Route::get('/admin/data-konten', [KontenController::class, 'index'])->name('index-konten');
+    Route::post('/admin/data-konten', [KontenController::class, 'store'])->name('store-konten');
+    Route::get('/admin/data-konten/{konten}', [KontenController::class, 'edit'])->name('edit-konten');
+    Route::put('/admin/data-konten/{konten}', [KontenController::class, 'update'])->name('update-konten');
+    Route::delete('/admin/data-konten/{konten}', [KontenController::class, 'destroy'])->name('update-konten');
 });
 
 Route::middleware('auth', 'hak_akses:admin')->group(function() {

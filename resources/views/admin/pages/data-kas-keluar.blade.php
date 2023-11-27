@@ -25,7 +25,7 @@
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
     <div class="admin-table-header bg-admin-primary">
-      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-user-group me-2"></i>Data Kas Keluar</div>
+      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-money-bill-transfer me-2"></i></i>Data Kas Keluar</div>
       <div>
         <button class="btn btn-admin-primary sk-fs text-white me-4 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-kKeluar"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
       </div>
@@ -52,7 +52,7 @@
                 <td>{{ $kas->tgl_keluar }}</td>
                 <td>{{ $kas->deskripsi_keluar }}</td>
                 <td>
-                    <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-kKeluar" data-id-keluar="{{ $kas->id_keluar }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
+                    <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-kKeluar" data-id-keluar="{{ $kas->id_keluar }}"><i class="fa-solid fa-pen-to-square text-admin-info"></i></i></span>
                     <span class="table-action btn btn-hapus" data-id-keluar="{{ $kas->id_keluar }}"><i class="fa-solid fa-trash text-admin-danger"></i></span>
                 </td>
             </tr>
@@ -126,7 +126,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Tambah Data Kas Keluar</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-money-bill-transfer me-2"></i>Tambah Data Kas Keluar</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -134,7 +134,7 @@
                     <label class="form-label">Nominal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-signature"></i>
+                            <i class="fa-solid fa-coins"></i>
                         </span>
                         <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="inNominalKeluar" id="inNominalKeluar" required>
                     </div>
@@ -143,7 +143,7 @@
                     <label class="form-label">Tanggal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-calendar"></i>
                         </span>
                         <input type="date" placeholder="Keluaran Tanggal Kas Keluar" class="form-control" name="inTanggalKeluar" id="inTanggalKeluar" required>
                     </div>
@@ -152,7 +152,7 @@
                     <label class="form-label">Deskripsi</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
+                            <i class="fa-solid fa-message"></i>
                         </span>
                         <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="inDeskripsi" id="inDeskripsi" required>
                     </div>
@@ -177,7 +177,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Edit Data Kas Keluar</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-money-bill-transfer me-2"></i>Edit Data Kas Keluar</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -186,7 +186,7 @@
                     <label class="form-label">Nominal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-signature"></i>
+                            <i class="fa-solid fa-coins"></i>
                         </span>
                         <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="editNominalKeluar" id="editNominalKeluar" required>
                     </div>
@@ -195,7 +195,7 @@
                     <label class="form-label">Tanggal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-calendar"></i>
                         </span>
                         <input type="date" placeholder="Keluaran Tanggal Kas Keluar" class="form-control" name="editTanggalKeluar" id="editTanggalKeluar" required>
                     </div>
@@ -204,7 +204,7 @@
                     <label class="form-label">Deskripsi</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
+                            <i class="fa-solid fa-message"></i>
                         </span>
                         <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="editDeskripsi" id="editDeskripsi" required>
                     </div>

@@ -27,9 +27,9 @@ class KontenController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inJudulKegiatan' => 'required|max:50',
-            'inGambarKegiatan' => 'required|image|max:10000',
+            'inGambarKegiatan' => 'required',
             'inIsiKonten' => 'required',
-            'inTglRilisKonten' => 'required|date',
+            'inTglRilisKonten' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -103,9 +103,8 @@ class KontenController extends Controller
 
         $validator = Validator::make($request->all(), [
             'editJudulKegiatan' => 'required|max:50',
-            'editGambarKegiatan' => 'image|max:10000',
             'editIsiKonten' => 'required',
-            'editTglRilisKonten' => 'required|date',
+            'editTglRilisKonten' => 'required',
         ]);
 
         if ($validator->fails()) {

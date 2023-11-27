@@ -28,12 +28,12 @@ class AdminController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inNamaAdmin' => 'Required|max:35',
-            'inUsernameAdmin' => 'required|unique:users,username|min:6|max:15',
-            'inPasswordAdmin' => 'required|min:6|max:12',
-            'inNoTelpAdmin' => 'required|min:10|max:15',
-            'inAlamatAdmin' => 'required|max:100',
+            'inUsernameAdmin' => 'required|unique:users,username|max:15',
+            'inPasswordAdmin' => 'required|max:12',
+            'inNoTelpAdmin' => 'required|max:15',
+            'inAlamatAdmin' => 'required',
             'inFotoAdmin' => 'required|image|max:10000',
-            'inTglLahirAdmin' => 'required|date'
+            'inTglLahirAdmin' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -110,12 +110,12 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'editNamaAdmin' => 'required|max:35',
-            'editUsernameAdmin' => 'required|unique:users,username,'.$user->id_user.',id_user|min:6|max:15',
-            'editPasswordAdmin' => 'min:6|max:12',
-            'editNoTelpAdmin' => 'required|min:10|max:15',
+            'editUsernameAdmin' => 'required|unique:users,username,'.$user->id_user.',id_user|max:15',
+            'editPasswordAdmin' => 'max:12',
+            'editNoTelpAdmin' => 'required|max:15',
             'editAlamatAdmin' => 'required|max:30',
             'editFotoAdmin' => 'image|max:10000',
-            'editTglLahirAdmin' => 'required|date'
+            'editTglLahirAdmin' => 'required'
         ]);
 
         if ($validator->fails()) {

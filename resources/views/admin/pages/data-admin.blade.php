@@ -113,7 +113,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Nama Admin" class="form-control" name="inNamaAdmin" id="inNamaAdmin" minlength="10" maxlength="35" required>
+                        <input type="text" placeholder="Masukan Nama Admin" class="form-control" name="inNamaAdmin" id="inNamaAdmin" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -122,7 +122,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Username Admin" class="form-control" name="inUsernameAdmin" id="inUsernameAdmin" minlength="6" maxlength="15" required>
+                        <input type="text" placeholder="Masukan Username Admin" class="form-control" name="inUsernameAdmin" id="inUsernameAdmin" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -131,7 +131,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
                         </span>
-                        <input type="password" placeholder="Masukan Password Admin" class="form-control" name="inPasswordAdmin" id="inPasswordAdmin" minlength="6" maxlength="12" required>
+                        <input type="password" placeholder="Masukan Password Admin" class="form-control" name="inPasswordAdmin" id="inPasswordAdmin" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -149,7 +149,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
                         </span>
-                        <input type="number" placeholder="Masukan No Telepon Admin" class="form-control" name="inNoTelpAdmin" id="inNoTelpAdmin" minlength="10" maxlength="15">
+                        <input type="text" placeholder="Masukan No Telepon Admin" class="form-control" name="inNoTelpAdmin" id="inNoTelpAdmin">
                     </div>
                 </div>
                 <div class="mb-3">

@@ -28,12 +28,12 @@ class PetugasController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inNamaPetugas' => 'Required|max:35',
-            'inUsernamePetugas' => 'required|unique:users,username|min:6|max:15',
-            'inPasswordPetugas' => 'required|min:6|max:12',
-            'inNoTelpPetugas' => 'required|min:10|max:15',
+            'inUsernamePetugas' => 'required|unique:users,username|max:15',
+            'inPasswordPetugas' => 'required|max:12',
+            'inNoTelpPetugas' => 'required|max:15',
             'inAlamatPetugas' => 'required',
             'inFotoPetugas' => 'required|image|max:10000',
-            'inTglLahirPetugas' => 'required|date'
+            'inTglLahirPetugas' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -113,7 +113,7 @@ class PetugasController extends Controller
             'editNamaPetugas' => 'required|max:35',
             'editUsernamePetugas' => 'required|unique:users,username,'.$user->id_user.',id_user|max:15',
             'editPasswordPetugas' => 'max:12',
-            'editNoTelpPetugas' => 'required|min:10|max:15',
+            'editNoTelpPetugas' => 'required|max:15',
             'editAlamatPetugas' => 'required|max:30',
             'editFotoPetugas' => 'image|max:10000',
             'editTglLahirPetugas' => 'required'

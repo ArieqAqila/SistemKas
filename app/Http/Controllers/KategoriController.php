@@ -24,8 +24,8 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNamaKategori' => 'required|max:30',
-            'inNominalKategori' => 'required|numeric|max:8',
+            'inNamaKategori' => 'required',
+            'inNominalKategori' => 'required',
         ]);
 
         if ($validator->fails()) {

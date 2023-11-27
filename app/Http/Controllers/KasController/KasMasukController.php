@@ -28,8 +28,8 @@ class KasMasukController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNominalMasuk' => 'required|numeric|max:9',
-            'inTanggalMasuk' => 'required|date',
+            'inNominalMasuk' => 'required',
+            'inTanggalMasuk' => 'required',
             'inDeskripsi' => 'required',
         ]);
 
@@ -80,8 +80,8 @@ class KasMasukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_masuk' => 'required',
-            'editNominalMasuk' => 'required|numeric|max:9',
-            'editTanggalMasuk' => 'required|date',
+            'editNominalMasuk' => 'required',
+            'editTanggalMasuk' => 'required',
             'editDeskripsi' => 'required',
         ]);
 

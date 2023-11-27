@@ -63,44 +63,51 @@
                 $nominal_tagihan = 0;
                 //dd(date('Y-m'));
             @endphp
-            @foreach ($warga as $tagihan_warga)
+            @forelse ($warga as $tagihan_warga)
                 <tr class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}" data-nominal-tagihan="{{ $tagihan_warga->kategori->nominal_kategori }}">
-                    
                     @if ($tagihan_warga->tgl_tagihan === null || date_format(date_create($tagihan_warga->tgl_tagihan), 'Y-m') <= date('Y-m'))
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $tagihan_warga->nama_user }}</td>
-                        <td>
+                        <td  >{{ $no++ }}</td>
+                        <td  >{{ $tagihan_warga->nama_user }}</td>
+                        <td  >
                             @if ($tagihan_warga->tgl_tagihan === null)
                                 #
                             @else
                                 {!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}
                             @endif
                         </td>
-                        <td>Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
-                        <td>#</td>
-                        <td>Belum Lunas</td>
+                        <td  >
+                            @if ($tagihan_warga->nominal_tagihan === null)
+                                #
+                            @else
+                                Rp{{ $tagihan_warga->nominal_tagihan }}
+                            @endif
+                        </td>
+                        <td  >#</td>
+                        <td  >Belum Lunas</td>
                         @admin
                         <td class="action-button">
                         @if ($tagihan_warga->id_tagihan === null)
-                        <span class="action-button table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span>
+                        <span class="table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                         @else
-                        <span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span>
+                        <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                         @endif
                         </td>
                         @endadmin
                     @else
-                        <td class="action-button">{{ $no++ }}</td>
-                        <td class="action-button">{{ $tagihan_warga->nama_user }}</td>
-                        <td class="action-button">{!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}</td>
-                        <td class="action-button">Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
-                        <td class="action-button">Rp{{ $tagihan_warga->nominal_sumbangan }}</td>
-                        <td class="action-button">Lunas</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $tagihan_warga->nama_user }}</td>
+                        <td>{!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}</td>
+                        <td>Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
+                        <td>Rp{{ $tagihan_warga->nominal_sumbangan }}</td>
+                        <td>Lunas</td>
                         @admin
-                        <td class="action-button"><span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span></td>
+                        <td class="action-button"><span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span></td>
                         @endadmin
                     @endif
                 </tr>
-            @endforeach
+            @empty
+                
+            @endforelse
         </tbody>
         <tfoot>
             <tr>
@@ -147,7 +154,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-hand-holding-dollar"></i>
                         </span>
-                        <input type="number" placeholder="-" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required readonly>
+                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required readonly>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -207,16 +214,16 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-hand-holding-dollar"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="editNominalTagihan" id="editNominalTagihan" required disabled>
+                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="editNominalTagihan" id="editNominalTagihan" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Sumbangan</label>
+                    <label class="form-label">Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-coins"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="editNominalSumbangan" id="editNominalSumbangan" required>
+                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="editNominalDibayar" id="editNominalDibayar" required>
                     </div>
                 </div>
                 <div class="mb-3">

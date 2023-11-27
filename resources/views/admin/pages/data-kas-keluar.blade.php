@@ -21,6 +21,7 @@
 @endsection
 
 @section('konten')
+
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
     <div class="admin-table-header bg-admin-primary">
@@ -135,7 +136,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-coins"></i>
                         </span>
-                        <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="inNominalKeluar" id="inNominalKeluar" max="10000000" required>
+                        <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="inNominalKeluar" id="inNominalKeluar" required>
                     </div>
                 </div>
                 <div class="mb-3">

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_masuk');
             $table->integer('nominal_masuk');
             $table->date('tgl_masuk');
-            $table->string('deskripsi_masuk', 80);
+            $table->string('deskripsi_masuk');
         });
     }
 

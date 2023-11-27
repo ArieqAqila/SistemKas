@@ -1,5 +1,6 @@
 $(document).ready(function () {
     const edit_btn = $('.btn-edit');
+    var id_tagihan;
     
     $('#form-tagihan').submit(function (e) { 
         e.preventDefault();
@@ -49,9 +50,10 @@ $(document).ready(function () {
             type: 'GET',
             cache: false,
             success: function(response) {
+                console.log(response);
                 $("#id_tagihan").val(response.data.id_tagihan);
                 $("#editNamaWarga").val(response.data.user.username);
-                $("#editNominalTagihan").val(response.data.nominal_tagihan);
+                $("#editNominalTagihan").val(response.data.user.kategori.nominal_kategori);
                 $("#editNominalSumbangan").val(response.data.nominal_sumbangan);
                 $("#editTglTagihan").val(response.data.tgl_tagihan);
             }

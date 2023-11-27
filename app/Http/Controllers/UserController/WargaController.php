@@ -30,12 +30,12 @@ class WargaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inNamaWarga' => 'Required|max:35',
-            'inUsernameWarga' => 'required|unique:users,username|max:15',
-            'inPasswordWarga' => 'required|max:12',
-            'inNoTelpWarga' => 'required|max:15',
+            'inUsernameWarga' => 'required|unique:users,username|min:6|max:15',
+            'inPasswordWarga' => 'required|min:6|max:12',
+            'inNoTelpWarga' => 'required|min:10|max:15',
             'inAlamatWarga' => 'required',
             'inFotoWarga' => 'required|image|max:10000',
-            'inTglLahirWarga' => 'required',
+            'inTglLahirWarga' => 'required|date',
             'inKategori' => 'required',
         ]);
 
@@ -115,12 +115,12 @@ class WargaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'editNamaWarga' => 'required|max:35',
-            'editUsernameWarga' => 'required|unique:users,username,'.$user->id_user.',id_user|max:15',
-            'editPasswordWarga' => 'max:12',
-            'editNoTelpWarga' => 'required|max:15',
+            'editUsernameWarga' => 'required|unique:users,username,'.$user->id_user.',id_user|min:6|max:15',
+            'editPasswordWarga' => 'min:6|max:12',
+            'editNoTelpWarga' => 'required|min:10|max:15',
             'editAlamatWarga' => 'required|max:30',
             'editFotoWarga' => 'image|max:10000',
-            'editTglLahirWarga' => 'required',
+            'editTglLahirWarga' => 'required|date',
             'editKategori' => 'required',
         ]);
 

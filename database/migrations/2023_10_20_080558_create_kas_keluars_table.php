@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_keluar');
             $table->integer('nominal_keluar');
             $table->date('tgl_keluar');
-            $table->string('deskripsi_keluar');
+            $table->string('deskripsi_keluar', 80);
         });
     }
 

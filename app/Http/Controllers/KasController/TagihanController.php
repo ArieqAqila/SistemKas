@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Response;
 use App\Models\Tagihan;
 use App\Models\User;
 use App\Models\KasMasuk;
-use App\Models\Kategori;
 
 class TagihanController extends Controller
 {
@@ -56,7 +55,7 @@ class TagihanController extends Controller
             'id_user' => 'required',
             'inNominalTagihan' => 'required|numeric',
             'inNominalDibayar' => 'required|numeric|gt:inNominalTagihan',
-            'inTglTagihan' => 'required',
+            'inTglTagihan' => 'required|numeric',
         ], [
             'inNominalDibayar.gt' => 'Nominal yang dibayar kurang',
         ]);
@@ -68,7 +67,10 @@ class TagihanController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-        dd('gagal');
+        
+        if ($request->inTglTagihan <= 0) {
+            return response()->json(['errors' => ['inTglTagihan' => 'Input tidak valid!']], 422);
+        }
 
         $cek_tagihan = Tagihan::where('id_user', $request->id_user)->first();
         
@@ -111,7 +113,7 @@ class TagihanController extends Controller
      */
     public function edit(Tagihan $tagihan)
     {
-        $tagihan_warga = Tagihan::where('id_tagihan', $tagihan->id_tagihan)->with('user')->first();
+        $tagihan_warga = Tagihan::where('id_tagihan', $tagihan->id_tagihan)->with('user', 'user.kategori')->first();
         
         return response()->json([
             'success' => true,
@@ -134,9 +136,8 @@ class TagihanController extends Controller
 
         $validator = Validator::make($request->all(), [
             'id_tagihan' => 'required',
-            'editNominalTagihan' => 'required',
-            'editNominalDibayar' => 'required',
-            'editTglTagihan' => 'required',
+            'editNominalSumbangan' => 'required|numeric|max:8',
+            'editTglTagihan' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -147,7 +148,7 @@ class TagihanController extends Controller
             ], 422);
         }
 
-        $tagihan->nominal_sumbangan = $request->editNominalDibayar - $request->editNominalTagihan;
+        $tagihan->nominal_sumbangan = $request->editNominalSumbangan;
         $tagihan->tgl_tagihan = $request->editTglTagihan;
         $tagihan->update();
         
@@ -182,7 +183,7 @@ class TagihanController extends Controller
             $rowData = [
                 $no++,
                 $item->user->nama_user,
-                $item->nominal_tagihan,
+                $item->user->kategori->nominal_kategori,
                 $item->nominal_sumbangan,
                 $item->tgl_tagihan,
             ];
@@ -198,7 +199,7 @@ class TagihanController extends Controller
 
     public function downloadLaporan()
     {
-        $dataTagihan = Tagihan::all();
+        $dataTagihan = Tagihan::with('user', 'user.kategori')->get();
 
         $csvData = $this->generateCsvData($dataTagihan);
 

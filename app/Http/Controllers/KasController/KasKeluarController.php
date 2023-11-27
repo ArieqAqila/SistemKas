@@ -28,9 +28,9 @@ class KasKeluarController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNominalKeluar' => 'required',
-            'inTanggalKeluar' => 'required',
-            'inDeskripsi' => 'required',
+            'inNominalKeluar' => 'required|numeric|max:9',
+            'inTanggalKeluar' => 'required|date',
+            'inDeskripsi' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -80,8 +80,8 @@ class KasKeluarController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_keluar' => 'required',
-            'editNominalKeluar' => 'required',
-            'editTanggalKeluar' => 'required',
+            'editNominalKeluar' => 'required|numeric|max:9',
+            'editTanggalKeluar' => 'required|date',
             'editDeskripsi' => 'required',
         ]);
 
@@ -134,7 +134,7 @@ class KasKeluarController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Data User berhasil dihapus!'
+            'message' => 'Data kas keluar berhasil dihapus!'
         ], 200);
     }
 

@@ -24,7 +24,7 @@
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
     <div class="admin-table-header bg-admin-primary">
-      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-user-nurse me-2"></i></i>Data Petugas</div>
+      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-user-group me-2"></i>Data Petugas</div>
       <div>
         <button class="btn btn-admin-primary sk-fs text-white me-4 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-petugas"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
       </div>
@@ -60,7 +60,7 @@
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye"></i> Lihat Foto</button></td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-petugas" data-id-petugas="{{ $user->id_user }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
-                    <span class="table-action btn btn-hapus" data-id-petugas="{{ $user->id_user }}"><i class="fa-solid fa-user-xmark text-admin-danger"></i></span>
+                    <span class="table-action btn btn-hapus" data-id-petugas="{{ $user->id_user }}"><i class="fa-solid fa-trash text-admin-danger"></i></span>
                 </td>
             </tr>
             @empty
@@ -103,7 +103,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-nurse me-2"></i>Tambah Data Petugas</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Tambah Data Petugas</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -111,7 +111,7 @@
                     <label class="form-label">Nama Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-signature"></i>
                         </span>
                         <input type="text" placeholder="Masukan Nama Petugas" class="form-control" name="inNamaPetugas" id="inNamaPetugas" required>
                     </div>
@@ -162,14 +162,8 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    
                     <label for="inFotoProfile" class="form-label">Foto Petugas</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
-                        <input type="file" accept="image/*" class="form-control" name="inFotoPetugas" id="inFotoPetugas" required>                                                
-                    </div>
+                    <input type="file" accept="image/*" class="form-control" name="inFotoPetugas" id="inFotoPetugas" required>                                                
                 </div>
             </div>
             <div class="modal-footer">
@@ -191,7 +185,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-nurse me-2"></i>Edit Data Petugas</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Edit Data Petugas</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -200,7 +194,7 @@
                     <label class="form-label">Nama Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-signature"></i>
                         </span>
                         <input type="text" placeholder="Masukan Nama Petugas" class="form-control" name="editNamaPetugas" id="editNamaPetugas" required>
                     </div>
@@ -253,12 +247,7 @@
                 <div class="mb-3">
                     <label class="form-label">Foto Petugas</label>
                     <button class="btn btn-admin-primary text-white mb-2 preview-foto-petugas"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
-                        <input type="file" accept="image/*" class="form-control" name="editFotoPetugas" id="editFotoPetugas">                                                
-                    </div>
+                    <input type="file" accept="image/*" class="form-control" name="editFotoPetugas" id="editFotoPetugas">                                                
                 </div>
             </div>
             <div class="modal-footer">

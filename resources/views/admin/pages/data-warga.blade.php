@@ -80,7 +80,7 @@
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-warga" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
-                    <span class="table-action btn btn-hapus" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-user-xmark text-admin-danger"></i></i></span>
+                    <span class="table-action btn btn-hapus" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-trash text-admin-danger"></i></span>
                 </td>
             </tr>
             @empty
@@ -133,7 +133,7 @@
                     <label class="form-label">Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-signature"></i>
                         </span>
                         <input type="text" placeholder="Masukan Nama Warga" class="form-control" name="inNamaWarga" id="inNamaWarga" required>
                     </div>
@@ -199,12 +199,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="inFotoProfile" class="form-label">Foto Warga</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
-                        <input type="file" accept="image/*" class="form-control" name="inFotoWarga" id="inFotoWarga" required>                                                
-                    </div>
+                    <input type="file" accept="image/*" class="form-control" name="inFotoWarga" id="inFotoWarga" required>                                                
                 </div>
             </div>
             <div class="modal-footer">
@@ -235,7 +230,7 @@
                     <label class="form-label">Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-signature"></i>
                         </span>
                         <input type="text" placeholder="Masukan Nama Warga" class="form-control" name="editNamaWarga" id="editNamaWarga" required>
                     </div>
@@ -301,12 +296,7 @@
                 <div class="mb-3">
                     <label class="form-label">Foto Warga</label>
                     <button class="btn btn-admin-primary text-white mb-2 preview-foto-warga"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
-                        <input type="file" accept="image/*" class="form-control" name="editFotoWarga" id="editFotoWarga">                                                
-                    </div>
+                    <input type="file" accept="image/*" class="form-control" name="editFotoWarga" id="editFotoWarga">                                                
                 </div>
             </div>
             <div class="modal-footer">

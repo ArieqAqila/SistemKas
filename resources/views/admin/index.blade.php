@@ -53,16 +53,16 @@
     <div class="sidebar aktif" id="sk-sidebar">
       <div class="inner-sidebar">
         <a href="{{route('dashboard-admin')}}" class="side-items @yield('dashboard')"><i class="fa-solid fa-gauge-high me-2"></i>DASHBOARD</a>
-        <a href="{{route('index-konten')}}" class="side-items @yield('konten-kegiatan')"><i class="fa-solid fa-house-user me-2"></i></i>KONTEN KEGIATAN</a>
+        <a href="{{route('index-konten')}}" class="side-items @yield('konten-kegiatan')"><i class="fa-solid fa-pen-to-square me-2"></i>KONTEN KEGIATAN</a>
 
         @admin
         <p class="side-items"><i class="fa-solid fa-users me-2"></i>DATA USER</p>
         <ul class="flex-column">
           <li class="side-sub-items @yield('data-warga')">
-            <a href="{{route('index-warga')}}"><i class="fa-solid fa-user-group me-1"></i>Data Warga</a>
+            <a href="{{route('index-warga')}}"><i class="fa-solid fa-user-group me-2"></i>Data Warga</a>
           </li>
           <li class="side-sub-items @yield('data-petugas')">
-            <a href="{{route('index-petugas')}}"><i class="fa-solid fa-user-nurse me-2"></i></i>Data Petugas</a>
+            <a href="{{route('index-petugas')}}"><i class="fa-solid fa-user-secret me-2"></i>Data Petugas</a>
           </li>
           <li class="side-sub-items @yield('data-admin')">
             <a href="{{route('index-admin')}}"><i class="fa-solid fa-user-tie me-2"></i>Data Admin</a>

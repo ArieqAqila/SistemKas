@@ -25,7 +25,7 @@
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
     <div class="admin-table-header bg-admin-primary">
-      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-house-user me-2"></i>Data Konten</div>
+      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-user-group me-2"></i>Data Konten</div>
       <div>
         <button class="btn btn-admin-primary sk-fs text-white me-4 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-konten"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
       </div>
@@ -96,7 +96,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-house-user me-2"></i>Tambah Data Kegiatan</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Tambah Data Kegiatan</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -104,7 +104,7 @@
                     <label class="form-label">Penulis Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-signature"></i>
                         </span>
                         <input type="text" placeholder="Masukan Penulis Kegiatan" value="{{ Auth::user()->nama_user }}" class="form-control" name="inPenulisKonten" id="inPenulisKonten" required disabled>
                     </div>
@@ -113,7 +113,7 @@
                     <label class="form-label">Judul Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-font"></i>
+                            <i class="fa-solid fa-address-card"></i>
                         </span>
                         <input type="text" placeholder="Masukan Judul Kegiatan" class="form-control" name="inJudulKegiatan" id="inJudulKegiatan" required>
                     </div>
@@ -121,10 +121,6 @@
                 <div class="mb-3">
                     <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
                     <div class="input-group">
-
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
                         <input type="file" accept="image/*" class="form-control" name="inGambarKegiatan" id="inGambarKegiatan" required>
                     </div>
                 </div>
@@ -163,15 +159,13 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Data Konten</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Edit Data Konten</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="text" name="id_konten" id="id_konten" >
                 <div class="mb-3">
-
                     <label class="form-label">Penulis Kegiatan</label>
-
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
@@ -180,45 +174,35 @@
                     </div>
                 </div>
                 <div class="mb-3">
-
                     <label class="form-label">Judul Kegiatan</label>
-
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-font"></i>
+                            <i class="fa-solid fa-address-card"></i>
                         </span>
-
-                        <input type="text" placeholder="Masukan Username Konten" class="form-control" name="editUsernameKonten" id="editUsernameKonten" required>
+                        <input type="text" placeholder="Masukan Judul Kegiatan" class="form-control" name="editJudulKegiatan" id="editJudulKegiatan" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Gambar kegiatan (Thumbnail)</label>
+                    <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
+                    <button type="button" class="btn btn-admin-primary text-white mb-2 preview-foto-konten"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
+                    <input type="file" accept="image/*" class="form-control" name="editGambarKegiatan" id="editGambarKegiatan">
+                    
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Isi Konten</label>
                     <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-image"></i>
-                        </span>
-                        <input type="text" placeholder="Masukan Password Konten" class="form-control" name="editPasswordKonten" id="editPasswordKonten">
+                        <textarea class="form-control" name="editIsiKonten" id="editIsiKonten" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Isi konten</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            #
-                        </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="editTglLahirKonten" id="editTglLahirKonten" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Tanggal konten kegiatan ditulis</label>
+                    <label class="form-label">Tanggal Konten Kegiatan Ditulis</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="text" placeholder="Masukan No Telepon Konten" class="form-control" name="editNoTelpKonten" id="editNoTelpKonten" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="editTglRilisKonten" id="editTglRilisKonten" required>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-admin-danger text-white" data-bs-dismiss="modal">Close</button>

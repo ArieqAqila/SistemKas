@@ -127,7 +127,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Tagihan Warga</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-hand-holding-dollar me-2"></i>Tagihan Warga</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -135,7 +135,7 @@
                     <label class="form-label">Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-signature"></i>
+                            <i class="fa-solid fa-user"></i>
                         </span>
                         <input type="text" name="id_user" id="id_user" hidden>
                         <input type="text" placeholder="Nama Warga" class="form-control" name="namaWarga" id="namaWarga" disabled>
@@ -145,7 +145,7 @@
                     <label class="form-label">Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
                         </span>
                         <input type="number" placeholder="-" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required readonly>
                     </div>
@@ -154,7 +154,7 @@
                     <label class="form-label">Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
+                            <i class="fa-solid fa-coins"></i>
                         </span>
                         <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="inNominalDibayar" id="inNominalDibayar" required>
                     </div>
@@ -187,7 +187,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-user-group me-2"></i>Edit Data Warga</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-hand-holding-dollar me-2"></i>Edit Data Tagihan Warga</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -196,7 +196,7 @@
                     <label class="form-label">Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-signature"></i>
+                            <i class="fa-solid fa-user"></i>
                         </span>
                         <input type="text" placeholder="Nama Warga" class="form-control" name="editNamaWarga" id="editNamaWarga" required disabled>
                     </div>
@@ -205,7 +205,7 @@
                     <label class="form-label">Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
                         </span>
                         <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="editNominalTagihan" id="editNominalTagihan" required disabled>
                     </div>
@@ -214,7 +214,7 @@
                     <label class="form-label">Nominal Sumbangan</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
+                            <i class="fa-solid fa-coins"></i>
                         </span>
                         <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="editNominalSumbangan" id="editNominalSumbangan" required>
                     </div>
@@ -223,7 +223,7 @@
                     <label class="form-label">Tanggal Tagihan</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-key"></i>
+                            <i class="fa-solid fa-calendar"></i>
                         </span>
                         <input type="date" placeholder="Masukan Nominal Sumbangan" class="form-control" name="editTglTagihan" id="editTglTagihan" required>
                     </div>

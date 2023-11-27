@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 
 class PetugasController extends Controller
@@ -49,9 +49,15 @@ class PetugasController extends Controller
         if ($request->hasFile('inFotoPetugas')) {
             $path = public_path()."\images\Profile Petugas\\";
             $file = $request->file('inFotoPetugas');
+
+            $image = Image::make($file);
+            $image->resize(250, 250);
+
+
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $image->save($path . $filename, 80);
+
             $petugas->foto_profile = $filename;
         }
 
@@ -130,9 +136,14 @@ class PetugasController extends Controller
             }
 
             $file = $request->file('editFotoPetugas');
+
+            $image = Image::make($file);
+            $image->resize(250, 250);
+            
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $image->save($path . $filename, 80);
+
             $user->foto_profile = $filename;
         }
 

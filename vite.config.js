@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/assets/js/kas/kas-masuk.js',
                 'resources/assets/js/kas/kas-keluar.js',
                 'resources/assets/js/konten.js',
+                'resources/assets/js/kategori.js',
                 'resources/assets/scss/index-admin.scss',
                 'resources/assets/scss/login.scss',
                 'resources/assets/scss/responsive-admin.scss',

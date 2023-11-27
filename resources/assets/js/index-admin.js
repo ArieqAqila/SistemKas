@@ -1,4 +1,4 @@
-var id_warga;
+var id_warga, nominal_tagihan;
 
 var table = new DataTable('#table-admin', {
     scrollCollapse:true,
@@ -7,11 +7,28 @@ var table = new DataTable('#table-admin', {
 });
 
 $('#table-admin').on('click', '.tagihan-warga', function () {
+    if ($(event.target).hasClass('action-button')) {
+        return;
+    }
+
     let data = table.row(this).data();
+
     id_warga = $(this).data('id-warga');
-    $('#modal-tagihan').on('shown.bs.modal');
+    nominal_tagihan = $(this).data('nominal-tagihan');
+
+    $('#modal-tagihan').modal('show');
+    $("#inNominalTagihan").val(nominal_tagihan);
     $("#id_user").val(id_warga);
     $("#namaWarga").val(data[1]);
+
+    $(document).on('input', '#inTglTagihan', function() {
+        // Get the value from inputX and calculate Y
+        const x = parseInt($(this).val());
+        const y = x * nominal_tagihan;
+
+        // Update the value of inputY
+        $('#inNominalTagihan').val(y); // Adjust the number of decimal places as needed
+    });
 });
 
 $('#sidebarCollapse').on('click', function() {

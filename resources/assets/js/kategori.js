@@ -1,7 +1,7 @@
-const edit_btn = $('.btn-edit');
+$(document).ready(function () {
+    const edit_btn = $('.btn-edit');
     const delete_btn = $('.btn-hapus');
-    const preview_foto_btn = $('.preview-foto');
-    var id_admin;
+    var id_kategori;
 
     $.ajaxSetup({
         headers: {
@@ -9,17 +9,17 @@ const edit_btn = $('.btn-edit');
         }
     });
 
-    $('#form-tambah-admin').submit(function (e) { 
+    $('#form-tambah-kategori').submit(function (e) { 
         e.preventDefault();
-        var data_admin = new FormData($(this)[0])
+        var kategori = new FormData($(this)[0])
         $.ajax({
             type: "POST",
-            url: "/admin/data-admin",
-            data: data_admin,
+            url: "/admin/data-kategori",
+            data: kategori,
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#modal-tambah-admin').modal('hide');
+                $('#modal-tambah-kategori').modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -50,56 +50,36 @@ const edit_btn = $('.btn-edit');
     });
 
     edit_btn.on("click", function () {
-        id_admin = $(this).data("id-admin");
+        id_kategori = $(this).data("id-kategori");
 
         $.ajax({
-            url: 'data-admin/' + id_admin,
+            url: 'data-kategori/' + id_kategori,
             type: 'GET',
             cache: false,
             success: function(response) {
-                $("#id_admin").val(response.data.id_user);
-                $("#editNamaAdmin").val(response.data.nama_user);
-                $("#editUsernameAdmin").val(response.data.username);
-                $("#editPasswordAdmin").attr('placeholder', 'Password Tersembunyi(Hidden)!');
-                $("#editNoTelpAdmin").val(response.data.notelp);
-                $("#editTglLahirAdmin").val(response.data.tgl_lahir);
-                $("#editAlamatAdmin").val(response.data.alamat);
-                $(".preview-foto-admin").click(function (e) { 
-                    e.preventDefault();
-                    if (response.data.foto_profile !== null) {
-                        Swal.fire({
-                            imageUrl: "/images/Profile Admin/" + response.data.foto_profile,
-                            imageHeight: 400,
-                            imageAlt: 'Foto Profile'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Oops...',
-                            text: 'Foto profile tidak ditemukan',                            
-                        })
-                    }                                         
-                });
+                $("#id_kategori").val(response.data.id_kategori);
+                $("#editNamaKategori").val(response.data.nama_kategori);
+                $("#editNominalKategori").val(response.data.nominal_kategori);
             }
         });
     });
 
-    $("#form-edit-admin").submit(function (e) { 
+    $("#form-edit-kategori").submit(function (e) { 
         e.preventDefault();
-        id_admin = $("#id_admin").val();
-        var data_admin = new FormData($(this)[0]);
+        id_kategori = $("#id_kategori").val();
+        var kategori = new FormData($(this)[0]);
 
         $.ajax({
             type: "POST",
-            url: "/admin/data-admin/" + id_admin,
-            data: data_admin,
+            url: "/admin/data-kategori/" + id_kategori,
+            data: kategori,
             contentType: false,
             processData: false,
             headers: {
                 "X-HTTP-Method-Override": "PUT"
             },
             success: function (response) {
-                $("#modal-edit-admin").modal('hide');
+                $("#modal-edit-kategori").modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -125,7 +105,7 @@ const edit_btn = $('.btn-edit');
     });
 
     delete_btn.on('click', function(){
-        id_admin = $(this).data("id-admin");
+        id_kategori = $(this).data("id_kategori");
 
         Swal.fire({
             icon: 'warning',
@@ -137,13 +117,13 @@ const edit_btn = $('.btn-edit');
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "DELETE",
-                        url: "/admin/data-admin/" + id_admin,
+                        url: "/admin/data-kategori/" + id_kategori,
                         dataType: "json",
                         success: function (response) {
                             if (response.success) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Data admin berhasil dihapus!',
+                                    title: 'Data kas kategori berhasil dihapus!',
                                     text: 'Memuat ulang halaman website...',
                                     timer: 2100,
                                     timerProgressBar: true,
@@ -158,7 +138,7 @@ const edit_btn = $('.btn-edit');
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
-                                    text: 'Data admin tidak ditemukan!',
+                                    text: 'Data kas kategori tidak ditemukan!',
                                     timer: 2100,
                                     timerProgressBar: true,
                                 });
@@ -168,21 +148,4 @@ const edit_btn = $('.btn-edit');
                 }
         });
     });
-
-    preview_foto_btn.on('click', function () {
-        var foto_profile = $(this).data("foto");
-
-        if (foto_profile !== null) {
-            Swal.fire({
-                imageUrl: "/images/Profile Admin/" + foto_profile,
-                imageHeight: 400,
-                imageAlt: 'Foto Profile'
-            });
-        } else {
-            Swal.fire({
-                icon: 'info',
-                title: 'Oops...',
-                text: 'Foto profile tidak ditemukan',                            
-            })
-        }
-    });
+});

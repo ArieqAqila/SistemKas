@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 
 class AdminController extends Controller
@@ -49,9 +49,14 @@ class AdminController extends Controller
         if ($request->hasFile('inFotoAdmin')) {
             $path = public_path()."\images\Profile Admin\\";
             $file = $request->file('inFotoAdmin');
+            
+            $image = Image::make($file);
+            $image->resize(250, 250);
+
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $image->save($path . $filename, 80);
+
             $admin->foto_profile = $filename;
         }
 
@@ -130,9 +135,14 @@ class AdminController extends Controller
             }
 
             $file = $request->file('editFotoAdmin');
+
+            $image = Image::make($file);
+            $image->resize(250, 250);
+
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
-            $file->move($path, $filename);
+            $image->save($path . $filename, 80);
+
             $user->foto_profile = $filename;
         }
 

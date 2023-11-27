@@ -65,6 +65,7 @@ $(document).ready(function () {
                 $("#editNoTelpWarga").val(response.data.notelp);
                 $("#editTglLahirWarga").val(response.data.tgl_lahir);
                 $("#editAlamatWarga").val(response.data.alamat);
+                $("#editKategori").val(response.data.id_kategori);
                 $(".preview-foto-warga").click(function (e) { 
                     e.preventDefault();
                     if (response.data.foto_profile !== null) {
@@ -100,7 +101,7 @@ $(document).ready(function () {
                 "X-HTTP-Method-Override": "PUT"
             },
             success: function (response) {
-                $("#modal-edit-warga").on('hidden.bs.modal');
+                $("#modal-edit-warga").modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,

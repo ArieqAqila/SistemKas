@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController\AdminController;
 use App\Http\Controllers\KasController\TagihanController;
 use App\Http\Controllers\KasController\KasMasukController;
 use App\Http\Controllers\KasController\KasKeluarController;
+use App\Http\Controllers\KategoriController;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -51,6 +52,10 @@ Route::middleware('auth', 'hak_akses:petugas,admin')->group(function() {
     Route::post('/admin/data-tagihan', [TagihanController::class, 'store'])->name('store-tagihan');
     
     Route::get('/admin/data-konten', [KontenController::class, 'index'])->name('index-konten');
+    Route::post('/admin/data-konten', [KontenController::class, 'store'])->name('store-konten');
+    Route::get('/admin/data-konten/{konten}', [KontenController::class, 'edit'])->name('edit-konten');
+    Route::put('/admin/data-konten/{konten}', [KontenController::class, 'update'])->name('update-konten');
+    Route::delete('/admin/data-konten/{konten}', [KontenController::class, 'destroy'])->name('update-konten');
 });
 
 Route::middleware('auth', 'hak_akses:admin')->group(function() {
@@ -71,6 +76,12 @@ Route::middleware('auth', 'hak_akses:admin')->group(function() {
     Route::get('/admin/data-admin/{user}', [AdminController::class, 'edit'])->name('edit-admin');
     Route::put('/admin/data-admin/{user}', [AdminController::class, 'update'])->name('update-admin');
     Route::delete('/admin/data-admin/{user}', [AdminController::class, 'destroy'])->name('update-admin');
+
+    Route::get('/admin/data-kategori', [KategoriController::class, 'index'])->name('index-kategori');
+    Route::post('/admin/data-kategori', [KategoriController::class, 'store'])->name('store-kategori');
+    Route::get('/admin/data-kategori/{kategori}', [KategoriController::class, 'edit'])->name('edit-kategori');
+    Route::put('/admin/data-kategori/{kategori}', [KategoriController::class, 'update'])->name('update-kategori');
+    Route::delete('/admin/data-kategori/{kategori}', [KategoriController::class, 'destroy'])->name('update-kategori');
     
     Route::get('/admin/data-tagihan/{tagihan}', [TagihanController::class, 'edit'])->name('edit-tagihan');
     Route::put('/admin/data-tagihan/{tagihan}', [TagihanController::class, 'update'])->name('update-tagihan');

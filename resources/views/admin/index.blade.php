@@ -21,7 +21,7 @@
   ])
 
   {{-- CKEditor 5 --}}
-  <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+  {{-- <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script> --}}
 
   {{-- Additional Assets --}}
   @yield('anotherJs')
@@ -76,6 +76,9 @@
             <a href="{{route('index-tagihan')}}"><i class="fa-solid fa-hand-holding-dollar me-2"></i>Tagihan Kas</a>
           </li>
         @admin
+          <li class="side-sub-items @yield('kategori')">
+            <a href="{{route('index-kategori')}}"><i class="fa-solid fa-hand-holding-dollar me-2"></i>Kategori</a>
+          </li>
           <li class="side-sub-items @yield('kas-masuk')">
             <a href="{{ route('index-kas-masuk') }}"><i class="fa-solid fa-money-bill-wave me-2"></i>Kas Masuk</a>
           </li>

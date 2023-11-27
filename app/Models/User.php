@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_kategori',
         'username',
         'password',
         'nama_user',
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function konten()
     {
         return $this->hasMany(Konten::class, 'id_user', 'id_user');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
 }

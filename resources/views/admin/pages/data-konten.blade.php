@@ -106,7 +106,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Penulis Kegiatan" class="form-control" name="inPenulisKonten" id="inPenulisKonten" required>
+                        <input type="text" placeholder="Masukan Penulis Kegiatan" value="{{ Auth::user()->nama_user }}" class="form-control" name="inPenulisKonten" id="inPenulisKonten" required disabled>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -121,6 +121,7 @@
                 <div class="mb-3">
                     <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
                     <div class="input-group">
+
                         <span class="input-group-text">
                             <i class="fa-regular fa-image"></i>
                         </span>
@@ -130,7 +131,7 @@
                 <div class="mb-3">
                     <label class="form-label">Isi Konten</label>
                     <div class="input-group">
-                        <div id="editor"></div>
+                        <textarea class="form-control" name="inIsiKonten" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -139,7 +140,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="inTglLahirKonten" id="inTglLahirKonten" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="inTglRilisKonten" id="inTglRilisKonten" required>
                     </div>
                 </div>
             </div>
@@ -166,22 +167,27 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" name="id_konten" id="id_konten" hidden>
+                <input type="text" name="id_konten" id="id_konten" >
                 <div class="mb-3">
-                    <label class="form-label">Penulis kegiatan</label>
+
+                    <label class="form-label">Penulis Kegiatan</label>
+
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Nama Konten" class="form-control" name="editNamaKonten" id="editNamaKonten" required>
+                        <input type="text" placeholder="Masukan Penulis Kegiatan" class="form-control" name="editPenulisKonten" id="editPenulisKonten" required disabled>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Judul kegiatan</label>
+
+                    <label class="form-label">Judul Kegiatan</label>
+
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-font"></i>
                         </span>
+
                         <input type="text" placeholder="Masukan Username Konten" class="form-control" name="editUsernameKonten" id="editUsernameKonten" required>
                     </div>
                 </div>
@@ -212,6 +218,7 @@
                         <input type="text" placeholder="Masukan No Telepon Konten" class="form-control" name="editNoTelpKonten" id="editNoTelpKonten" required>
                     </div>
                 </div>
+
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-admin-danger text-white" data-bs-dismiss="modal">Close</button>

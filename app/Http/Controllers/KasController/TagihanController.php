@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Response;
 use App\Models\Tagihan;
 use App\Models\User;
 use App\Models\KasMasuk;
+use App\Models\Kategori;
 
 class TagihanController extends Controller
 {
@@ -53,9 +54,11 @@ class TagihanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
-            'inNominalTagihan' => 'required',
-            'inNominalSumbangan' => 'required',
+            'inNominalTagihan' => 'required|numeric',
+            'inNominalDibayar' => 'required|numeric|gt:inNominalTagihan',
             'inTglTagihan' => 'required',
+        ], [
+            'inNominalDibayar.gt' => 'Nominal yang dibayar kurang',
         ]);
 
         if ($validator->fails()) {
@@ -65,6 +68,7 @@ class TagihanController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
+        dd('gagal');
 
         $cek_tagihan = Tagihan::where('id_user', $request->id_user)->first();
         
@@ -77,15 +81,14 @@ class TagihanController extends Controller
         $tagihan = Tagihan::updateOrCreate(
             ['id_user' => $request->id_user],
             [
-                'nominal_tagihan' => $request->inNominalTagihan,
-                'nominal_sumbangan' => $request->inNominalSumbangan,
+                'nominal_sumbangan' => $request->inNominalDibayar - $request->inNominalTagihan,
                 'status_tagihan' => 'LUNAS',
                 'tgl_tagihan' => $tglTagihan    
             ]
         );
 
         $kas_masuk = KasMasuk::create([
-            'nominal_masuk' => $tagihan->nominal_tagihan + $tagihan->nominal_sumbangan,
+            'nominal_masuk' => $request->inNominalDibayar,
             'tgl_masuk' => Carbon::now()->format('Y-m-d'),
             'deskripsi_masuk' => 'Tagihan Kas ' . $tagihan->user->username
         ]);
@@ -132,7 +135,7 @@ class TagihanController extends Controller
         $validator = Validator::make($request->all(), [
             'id_tagihan' => 'required',
             'editNominalTagihan' => 'required',
-            'editNominalSumbangan' => 'required',
+            'editNominalDibayar' => 'required',
             'editTglTagihan' => 'required',
         ]);
 
@@ -144,8 +147,7 @@ class TagihanController extends Controller
             ], 422);
         }
 
-        $tagihan->nominal_tagihan = $request->editNominalTagihan;
-        $tagihan->nominal_sumbangan = $request->editNominalSumbangan;
+        $tagihan->nominal_sumbangan = $request->editNominalDibayar - $request->editNominalTagihan;
         $tagihan->tgl_tagihan = $request->editTglTagihan;
         $tagihan->update();
         

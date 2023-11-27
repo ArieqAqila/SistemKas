@@ -58,6 +58,7 @@
                 <th>Tanggal Lahir</th>
                 <th>No. Telp</th>
                 <th>Alamat</th>
+                <th>Kategori</th>
                 <th>Foto Profile</th>
                 <th>Action</th>
             </tr>
@@ -75,6 +76,7 @@
                 <td class="tagihan-warga">{!! tgl_indonesia($user->tgl_lahir) !!}</td>
                 <td class="tagihan-warga">{{ $user->notelp }}</td>
                 <td class="tagihan-warga">{{ $user->alamat }}</td>
+                <td class="tagihan-warga">{{ $user->kategori->nama_kategori }}</td>
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-warga" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
@@ -92,6 +94,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                 </tr>
             @endforelse
         </tbody>
@@ -104,6 +107,7 @@
                 <th>Tanggal Lahir</th>
                 <th>No. Telp</th>
                 <th>Alamat</th>
+                <th>Kategori</th>
                 <th>Foto Profile</th>
                 <th>Action</th>
             </tr>
@@ -177,6 +181,20 @@
                             <i class="fa-solid fa-location-dot"></i>
                         </span>
                         <input type="text" placeholder="Masukan Alamat Warga" class="form-control" name="inAlamatWarga" id="inAlamatWarga" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Kategori</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <select type="text" placeholder="Pilih Kategori Warga" class="form-control" name="inKategori" id="inKategori" required>
+                            <option hidden selected class="disabled">Pilih Kategori Warga</option>
+                            @foreach ($kategori as $item)
+                                <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }} -> Rp{{ $item->nominal_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -265,6 +283,19 @@
                             <i class="fa-solid fa-location-dot"></i>
                         </span>
                         <input type="text" placeholder="Masukan Alamat Warga" class="form-control" name="editAlamatWarga" id="editAlamatWarga" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Kategori</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <select type="text" placeholder="Masukan Kategori Warga" class="form-control" name="editKategori" id="editKategori" required>
+                            @foreach ($kategori as $item)
+                                <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }} -> Rp{{ $item->nominal_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3">

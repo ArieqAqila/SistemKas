@@ -25,7 +25,7 @@
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
     <div class="admin-table-header bg-admin-primary">
-      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-user-group me-2"></i>Data Kategori</div>
+      <div class="ms-4 text-admin-primary"><i class="fa-solid fa-clipboard-list me-2"></i>Data Kategori</div>
       <div>
         <button class="btn btn-admin-primary sk-fs text-white me-4 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-kategori"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
       </div>
@@ -48,7 +48,7 @@
             <tr>
                 <td>{{ $no++; }}</td>
                 <td>{{ $item->nama_kategori }}</td>
-                <td>Rp{{ $item->nominal_kategori }}</td>
+                <td>{{ Rupiah::format($item->nominal_kategori) }}</td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-kategori" data-id-kategori="{{ $item->id_kategori }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                     <span class="table-action btn btn-hapus" data-id-kategori="{{ $item->id_kategori }}"><i class="fa-solid fa-trash text-admin-danger"></i></span>
@@ -94,16 +94,16 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Nominal Kategori" class="form-control" name="inNamaKategori" id="inNamaKategori" required>
+                        <input type="text" placeholder="Masukkan Nama Kategori" class="form-control" name="inNamaKategori" id="inNamaKategori" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Nominal Kategori</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Tanggal Kategori" class="form-control" name="inNominalKategori" id="inNominalKategori" required>
+                        <input type="number" placeholder="Masukkan Tanggal Kategori" class="form-control" name="inNominalKategori" id="inNominalKategori" required>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Nama Kategori" class="form-control" name="editNamaKategori" id="editNamaKategori" required>
+                        <input type="text" placeholder="Masukkan Nama Kategori" class="form-control" name="editNamaKategori" id="editNamaKategori" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -146,7 +146,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Kategori" class="form-control" name="editNominalKategori" id="editNominalKategori" required>
+                        <input type="number" placeholder="Masukkan Nominal Kategori" class="form-control" name="editNominalKategori" id="editNominalKategori" required>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'inNamaKategori' => 'required|max:30',
-            'inNominalKategori' => 'required|numeric|max:8',
+            'inNominalKategori' => 'required|numeric|max:999999999',
         ]);
 
         if ($validator->fails()) {
@@ -74,8 +74,8 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_kategori' => 'required',
-            'editNamaKategori' => 'required',
-            'editNominalKategori' => 'required',
+            'editNamaKategori' => 'required|max:30',
+            'editNominalKategori' => 'required|numeric|max:999999999',
         ]);
 
         if ($validator->fails()) {

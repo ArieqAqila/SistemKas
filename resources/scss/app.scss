@@ -1,7 +1,7 @@
 $primary : #4BA586;
 $secondary : #131B20;
 $info : #0096C7;
-$warning :#FFBD09;
+$warning :#ffb703;
 $danger : #E63946;
 
 @import "../../node_modules/bootstrap/scss/functions";
@@ -18,7 +18,3 @@ $custom-theme-colors : (
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
-
-.btn{
-    --bs-btn-border-width: transparent;
-}

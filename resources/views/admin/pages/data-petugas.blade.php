@@ -54,7 +54,7 @@
                 <td>{{ $user->nama_user }}</td>
                 <td>{{ $user->username }}</td>
                 <td><b>HIDDEN</b></td>
-                <td>{!! date('d F Y', $user->tgL_lahir) !!}</td>
+                <td>{{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}</td>
                 <td>{{ $user->notelp }}</td>
                 <td>{{ $user->alamat }}</td>
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye"></i> Lihat Foto</button></td>

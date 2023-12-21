@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
 
 
 class WargaController extends Controller
@@ -18,7 +19,7 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $warga = User::where('hak_akses', 'warga')->get();
+        $warga = User::with('kategori')->where('hak_akses', 'warga')->get();
         $kategori = Kategori::all();
         return view('admin/pages/data-warga', compact('warga', 'kategori'));
     }
@@ -155,6 +156,7 @@ class WargaController extends Controller
         $user->nama_user = $request->editNamaWarga;
         $user->username = $request->editUsernameWarga;
         if ($request->input('editPasswordWarga') !== null) {
+            
             $user->password = hash::make($request->editPasswordWarga);
         };
         $user->notelp = $request->editNoTelpWarga;
@@ -192,5 +194,53 @@ class WargaController extends Controller
             'success' => true,
             'message' => 'Data User berhasil dihapus!'
         ], 200);
+    }
+
+    function ResetPassword(Request $request) {
+        $user = User::where('hak_akses', 'warga')->where('id_user', Auth::user()->id_user);
+
+        if (!$user) {
+            return abort(404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:6|max:12|different:oldPassword',
+            'confirmPassword' => 'required|same:newPassword',
+        ],[
+            'oldPassword.required' => 'Password saat ini wajib diisi!',
+            'newPassword.required' => 'Password baru wajib diisi!',
+            'newPassword.min' => 'Password baru kurang dari 6 karakter!',
+            'newPassword.max' => 'Password baru lebih dari 12 karakter!',
+            'newPassword.different' => 'Password baru sama dengan password saat ini!',
+            'confirmPassword.required' => 'Konfirmasi password wajib diisi!',
+            'confirmPassword.same' => 'Konfirmasi password berbeda dengan password baru!',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Password yang diinput tidak valid!',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $authUser = Auth::user();
+        $user = User::where('id_user', $authUser->id_user)->first();
+        $oldPassword = $user->password;        
+
+        if (!Hash::check($request->oldPassword, $oldPassword)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Password yang diinput tidak valid!',
+                'errors' => ['oldPassword' => ['Password saat ini tidak sama!']],
+            ], 422);
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $user->is_first_login = false;
+        $user->save();
+
+        return redirect()->route('dashboard-warga');
     }
 }

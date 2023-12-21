@@ -27,7 +27,7 @@
     <div class="admin-table-header bg-admin-primary">
       <div class="ms-4 text-admin-primary"><i class="fa-solid fa-money-bill-wave me-2"></i></i>Data Kas Masuk</div>
       <div>
-        <button class="btn btn-admin-primary sk-fs text-white me-4 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-kMasuk"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
+        <button class="btn btn-admin-primary sk-fs text-white me-2 sk-fw-medium" data-bs-toggle="modal" data-bs-target="#modal-tambah-kMasuk"><i class="fa-solid fa-circle-plus me-2"></i>Tambah Data</button>
       </div>
     </div>
     <div class="table-body">
@@ -48,8 +48,8 @@
             @forelse ($kas_masuk as $kas)
             <tr>
                 <td>{{ $no++; }}</td>
-                <td>Rp{{ $kas->nominal_masuk }}</td>
-                <td>{{ $kas->tgl_masuk }}</td>
+                <td>{{ Rupiah::format($kas->nominal_masuk) }}</td>
+                <td>{{ DateHelper::formatDateIndonesia($kas->tgl_masuk) }}</td>
                 <td>{{ $kas->deskripsi_masuk }}</td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-kMasuk" data-id-masuk="{{ $kas->id_masuk }}"><i class="fa-solid fa-pen-to-square text-admin-info"></i></span>
@@ -116,6 +116,22 @@
         </form>
     </div>
   </div>
+
+  <div class="sk-admin-table-container border-admin-primary border-0 mt-5">
+    <div class="admin-table-header sk-h-auto flex-column flex-sm-row px-4 py-sm-5 bg-admin-danger fw-normal">
+        <span class="text-admin-danger pt-1"><i class="fa-solid fa-file-circle-xmark me-2"></i></i>Reset Data</span>
+            <div class="row align-items-center pb-2 mt-3 mt-sm-0">
+                <div class="col-12 col-sm">
+                    <div class="form-text ms-1" id="start-date">&nbsp;</div>
+                    <div class="d-grid gap-2 mx-auto pb-2">
+                        <span class="fw-bold text-danger">RESET DATA BERARTI MENGHAPUS SEMUA DATA!</span>
+                        <button type="button" class="btn btn-admin-danger sk-fs text-white btn-reset"><i class="fa-solid fa-file-circle-xmark me-2"></i>Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -134,9 +150,9 @@
                     <label class="form-label">Nominal Kas Masuk</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Kas Masuk" class="form-control" name="inNominalMasuk" id="inNominalMasuk" required>
+                        <input type="number" placeholder="Masukkan Nominal Kas Masuk" class="form-control" name="inNominalMasuk" id="inNominalMasuk" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -145,7 +161,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Kas Masuk" class="form-control" name="inTanggalMasuk" id="inTanggalMasuk" required>
+                        <input type="date" placeholder="Masukkan Tanggal Kas Masuk" class="form-control" name="inTanggalMasuk" id="inTanggalMasuk" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -154,7 +170,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-message"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="inDeskripsi" id="inDeskripsi" required>
+                        <input type="text" placeholder="Masukkan Deskripsi" class="form-control" name="inDeskripsi" id="inDeskripsi" required>
                     </div>
                 </div>
             </div>
@@ -186,9 +202,9 @@
                     <label class="form-label">Nominal Kas Masuk</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Kas Masuk" class="form-control" name="editNominalMasuk" id="editNominalMasuk" required>
+                        <input type="number" placeholder="Masukkan Nominal Kas Masuk" class="form-control" name="editNominalMasuk" id="editNominalMasuk" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -197,7 +213,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Kas Masuk" class="form-control" name="editTanggalMasuk" id="editTanggalMasuk" required>
+                        <input type="date" placeholder="Masukkan Tanggal Kas Masuk" class="form-control" name="editTanggalMasuk" id="editTanggalMasuk" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -206,7 +222,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-message"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="editDeskripsi" id="editDeskripsi" required>
+                        <input type="text" placeholder="Masukkan Deskripsi" class="form-control" name="editDeskripsi" id="editDeskripsi" required>
                     </div>
                 </div>
             </div>

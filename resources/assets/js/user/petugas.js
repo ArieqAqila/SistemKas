@@ -20,7 +20,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#modal-tambah-petugas').on('hidden.bs.modal');
+                $('#modal-tambah-petugas').modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 "X-HTTP-Method-Override": "PUT"
             },
             success: function (response) {
-                $("#modal-edit-petugas").on('hidden.bs.modal');
+                $("#modal-edit-petugas").modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -115,11 +115,16 @@ $(document).ready(function () {
                     }
                 });
             },
-            error: function (xhr, status, error) {
+            error: function (xhr) {
+                var errors = xhr.responseJSON.errors;
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
                     text: 'Terjadi kesalahan!'
+                });
+                $.each(errors, function (key, value) { 
+                    var errorHtml = '<span class="invalid-feedback" role="alert"><strong>' + value[0] + '</strong></span>';
+                    $('#' + key).addClass('is-invalid').parent().append(errorHtml);
                 });
             }
         });

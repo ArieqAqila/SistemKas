@@ -81,7 +81,7 @@ class KontenController extends Controller
      */
     public function edit(Konten $konten)
     {
-        $konten = Konten::with('user')->first();
+        $konten->load('user');
         return response()->json([
             'success' => true,
             'message' => 'Berhasil load data Konten Kegiatan',

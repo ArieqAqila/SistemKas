@@ -56,14 +56,16 @@
         font-size: 0.805rem;
     }
 
-
-
     .sidebar{
         width: 100%;
         align-items: center;
         
         .inner-sidebar{
             width: fit-content;
+        }
+        .inner-sidebar::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; /* make scrollbar transparent */
         }
 
         .side-items{
@@ -98,6 +100,10 @@
     .sk-admin-table-container.border-admin-primary{
         margin-top: 5rem;
     }
+
+    ol, ul{
+        padding-left: 0 !important;
+    }
 }
 
 @media (max-width: 576px){
@@ -127,7 +133,19 @@
         font-size: 0.7rem;
     }
 
+    .top-navbar .left-topbar div{
+        font-size: 0.86rem;
+    }
+
     .btn-admin-primary.sk-fs, .btn-admin-info.sk-fs{
         font-size: 0.8rem;
+    }
+
+    .top-navbar{
+        height: 5.375rem;
+    }
+
+    .sidebar, .closebar{
+        top: 5.375rem;
     }
 }

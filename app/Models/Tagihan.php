@@ -19,6 +19,7 @@ class Tagihan extends Model
      */
     protected $fillable = [
         'id_user',
+        'nominal_tertagih',
         'nominal_sumbangan',
         'status_tagihan',
         'tgl_tagihan',

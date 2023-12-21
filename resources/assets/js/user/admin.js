@@ -114,11 +114,16 @@ const edit_btn = $('.btn-edit');
                     }
                 });
             },
-            error: function (xhr, status, error) {
+            error: function (xhr) {
+                var errors = xhr.responseJSON.errors;
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
                     text: 'Terjadi kesalahan!'
+                });
+                $.each(errors, function (key, value) { 
+                    var errorHtml = '<span class="invalid-feedback" role="alert"><strong>' + value[0] + '</strong></span>';
+                    $('#' + key).addClass('is-invalid').parent().append(errorHtml);
                 });
             }
         });

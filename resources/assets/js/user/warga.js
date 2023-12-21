@@ -20,7 +20,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#modal-tambah-warga').modal('show');
+                $('#modal-tambah-warga').modal('hide');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -116,11 +116,16 @@ $(document).ready(function () {
                     }
                 });
             },
-            error: function (xhr, status, error) {
+            error: function (xhr) {
+                var errors = xhr.responseJSON.errors;
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
                     text: 'Terjadi kesalahan!'
+                });
+                $.each(errors, function (key, value) { 
+                    var errorHtml = '<span class="invalid-feedback" role="alert"><strong>' + value[0] + '</strong></span>';
+                    $('#' + key).addClass('is-invalid').parent().append(errorHtml);
                 });
             }
         });

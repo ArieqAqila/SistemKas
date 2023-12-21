@@ -21,23 +21,6 @@
 @endsection
 
 @section('konten')
-@php
-    function tgl_indonesia($date){
-        /* ARRAY u/ hari dan bulan */
-        $Hari = array ("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",);
-        $Bulan = array ("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
-        
-        /* Memisahkan format tanggal bulan dan tahun menggunakan substring */
-        $tahun 	 = substr($date, 0, 4);
-        $bulan 	 = substr($date, 5, 2);
-        $tgl	 = substr($date, 8, 2);
-        $waktu	 = substr($date,11, 5);
-        $hari	 = date("w", strtotime($date));
-            
-        $result = $tgl." ".$Bulan[(int)$bulan-1]." ".$tahun."";
-        return $result;
-    }
-@endphp
 
 <div class="sk-admin-container mt-5">
   <div class="sk-admin-table-container border-admin-primary">
@@ -73,7 +56,7 @@
                 <td class="tagihan-warga">{{ $user->nama_user }}</td>
                 <td class="tagihan-warga">{{ $user->username }}</td>
                 <td class="tagihan-warga"><b>HIDDEN</b></td>
-                <td class="tagihan-warga">{!! tgl_indonesia($user->tgl_lahir) !!}</td>
+                <td class="tagihan-warga">{{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}</td>
                 <td class="tagihan-warga">{{ $user->notelp }}</td>
                 <td class="tagihan-warga">{{ $user->alamat }}</td>
                 <td class="tagihan-warga">{{ $user->kategori->nama_kategori }}</td>

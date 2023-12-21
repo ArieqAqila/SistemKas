@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hak_akses' => \App\Http\Middleware\HakAksesUser::class,
+        'is_first_login' => \App\Http\Middleware\FirstLoginWarga::class,
     ];
 }

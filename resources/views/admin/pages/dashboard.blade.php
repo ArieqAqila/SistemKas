@@ -52,8 +52,8 @@
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $item->jenis }}</td>
-                <td>Rp{{ $item->nominal }}</td>
-                <td>{{ $item->tanggal }}</td>
+                <td>{{ Rupiah::format($item->nominal) }}</td>
+                <td>{{ DateHelper::formatDateIndonesia($item->tanggal) }}</td>
                 <td>{{ $item->deskripsi }}</td>
             </tr>
             @empty

@@ -28,7 +28,7 @@ class KasKeluarController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNominalKeluar' => 'required|numeric|max:9',
+            'inNominalKeluar' => 'required|numeric|max:999999999',
             'inTanggalKeluar' => 'required|date',
             'inDeskripsi' => 'required|string',
         ]);
@@ -80,7 +80,7 @@ class KasKeluarController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_keluar' => 'required',
-            'editNominalKeluar' => 'required|numeric|max:9',
+            'editNominalKeluar' => 'required|numeric|max:999999999',
             'editTanggalKeluar' => 'required|date',
             'editDeskripsi' => 'required',
         ]);
@@ -168,7 +168,8 @@ class KasKeluarController extends Controller
         return $data;
     }
 
-    public function downloadLaporan(Request $request) {
+    public function downloadLaporan(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
@@ -193,5 +194,15 @@ class KasKeluarController extends Controller
         $response->header('Content-Disposition', 'attachment; filename="Data Kas.csv"');
     
         return $response;
+    }
+
+    public function truncateTable()
+    {
+        KasKeluar::truncate();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reset data kas keluar berhasil!'
+        ], 200);
     }
 }

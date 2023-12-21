@@ -11,9 +11,14 @@
 </head>
 <body class="d-flex justify-content-center align-items-center">
     <div class="login-container">
-        <div class="fw-medium text-primary fs-3 text-center mb-4">Login eRTe 03</div>
+        <div class="fw-medium text-primary fs-3 text-center mb-3">Login eRTe 03</div>
         <form action="{{ route('proses-login') }}" method="POST" class="col-10">
             {{ csrf_field() }}
+            @if ($errors->any())
+            <div class="text-white bg-admin-danger py-2 text-center mb-2 rounded-1">
+                Username atau Password salah
+            </div>
+            @endif
             <div class="">
                 <div class="mb-3">
                 <label class="form-text text-black">Username</label>

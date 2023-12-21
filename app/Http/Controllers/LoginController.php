@@ -17,12 +17,10 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
-            
-            if ($user->hak_akses === 'warga') {
-                return redirect()->intended(route('dashboard-warga'));
-            } else {
-                return redirect()->intended(route('dashboard-admin'));
-            }
+
+            return $user->hak_akses === 'warga' 
+                                            ? redirect()->intended(route('dashboard-warga')) 
+                                            : redirect()->intended(route('dashboard-admin'));
         }
 
         return back()->withErrors(['message' => 'Username atau Password salah!']);

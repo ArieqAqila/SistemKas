@@ -11,6 +11,8 @@
   {{-- Additional CSS --}}
   @yield('anotherCss')
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
   {{-- Basic Assets --}}
   @vite([
     'resources/assets/scss/index-admin.scss',
@@ -77,7 +79,7 @@
           </li>
         @admin
           <li class="side-sub-items @yield('kategori')">
-            <a href="{{route('index-kategori')}}"><i class="fa-solid fa-hand-holding-dollar me-2"></i>Kategori</a>
+            <a href="{{route('index-kategori')}}"><i class="fa-solid fa-clipboard-list me-3"></i></i>Kategori</a>
           </li>
           <li class="side-sub-items @yield('kas-masuk')">
             <a href="{{ route('index-kas-masuk') }}"><i class="fa-solid fa-money-bill-wave me-2"></i>Kas Masuk</a>
@@ -108,5 +110,7 @@
   @yield('modal-tambah')
 
   @yield('modal-edit')
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

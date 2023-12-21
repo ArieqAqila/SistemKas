@@ -16,6 +16,8 @@ $('#table-admin').on('click', '.tagihan-warga', function () {
     id_warga = $(this).data('id-warga');
     nominal_tagihan = $(this).data('nominal-tagihan');
 
+    
+
     $('#modal-tagihan').modal('show');
     $("#inNominalTagihan").val(nominal_tagihan);
     $("#id_user").val(id_warga);

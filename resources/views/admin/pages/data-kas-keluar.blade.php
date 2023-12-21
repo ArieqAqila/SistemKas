@@ -47,8 +47,8 @@
             @forelse ($kas_keluar as $kas)
             <tr>
                 <td>{{ $no++; }}</td>
-                <td>Rp{{ $kas->nominal_keluar }}</td>
-                <td>{{ $kas->tgl_keluar }}</td>
+                <td>{{ Rupiah::format($kas->nominal_keluar) }}</td>
+                <td>{{ DateHelper::formatDateIndonesia($kas->tgl_keluar) }}</td>
                 <td>{{ $kas->deskripsi_keluar }}</td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-kKeluar" data-id-keluar="{{ $kas->id_keluar }}"><i class="fa-solid fa-pen-to-square text-admin-info"></i></i></span>
@@ -115,6 +115,22 @@
         </form>
     </div>
   </div>
+
+  <div class="sk-admin-table-container border-admin-primary border-0 mt-5">
+    <div class="admin-table-header sk-h-auto flex-column flex-sm-row px-4 py-sm-5 bg-admin-danger fw-normal">
+        <span class="text-admin-danger pt-1"><i class="fa-solid fa-file-circle-xmark me-2"></i></i>Reset Data</span>
+            <div class="row align-items-center pb-2 mt-3 mt-sm-0">
+                <div class="col-12 col-sm">
+                    <div class="form-text ms-1" id="start-date">&nbsp;</div>
+                    <div class="d-grid gap-2 mx-auto pb-2">
+                        <span class="fw-bold text-danger">RESET DATA BERARTI MENGHAPUS SEMUA DATA!</span>
+                        <button type="button" class="btn btn-admin-danger sk-fs text-white btn-reset"><i class="fa-solid fa-file-circle-xmark me-2"></i>Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -123,46 +139,46 @@
     {{ csrf_field() }}
     <div class="modal" tabindex="-1" id="modal-tambah-kKeluar">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title"><i class="fa-solid fa-money-bill-transfer me-2"></i>Tambah Data Kas Keluar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Nominal Kas Keluar</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
-                        </span>
-                        <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="inNominalKeluar" id="inNominalKeluar" max="10000000" required>
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title"><i class="fa-solid fa-money-bill-transfer me-2"></i>Tambah Data Kas Keluar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nominal Kas Keluar</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-rupiah-sign"></i>
+                            </span>
+                            <input type="number" placeholder="Masukkan Nominal Kas Keluar" class="form-control" name="inNominalKeluar" id="inNominalKeluar" max="10000000" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal Kas Keluar</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-calendar"></i>
+                            </span>
+                            <input type="date" placeholder="Masukkan Tanggal Kas Keluar" class="form-control" name="inTanggalKeluar" id="inTanggalKeluar" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-message"></i>
+                            </span>
+                            <input type="text" placeholder="Masukkan Deskripsi" class="form-control" name="inDeskripsi" id="inDeskripsi" required>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Tanggal Kas Keluar</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-calendar"></i>
-                        </span>
-                        <input type="date" placeholder="Keluaran Tanggal Kas Keluar" class="form-control" name="inTanggalKeluar" id="inTanggalKeluar" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Deskripsi</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fa-solid fa-message"></i>
-                        </span>
-                        <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="inDeskripsi" id="inDeskripsi" required>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-admin-danger text-white" data-bs-dismiss="modal">Close</button>
+                    <button type="reset" class="btn btn-admin-info text-white">Reset</button>
+                    <button type="submit" class="btn btn-admin-primary text-white">Save changes</button>
                 </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-admin-danger text-white" data-bs-dismiss="modal">Close</button>
-            <button type="reset" class="btn btn-admin-info text-white">Reset</button>
-            <button type="submit" class="btn btn-admin-primary text-white">Save changes</button>
-            </div>
-        </div>
         </div>
     </div>
 </form>
@@ -185,9 +201,9 @@
                     <label class="form-label">Nominal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Keluaran Nominal Kas Keluar" class="form-control" name="editNominalKeluar" id="editNominalKeluar" required>
+                        <input type="number" placeholder="Masukkan Nominal Kas Keluar" class="form-control" name="editNominalKeluar" id="editNominalKeluar" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -196,7 +212,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Keluaran Tanggal Kas Keluar" class="form-control" name="editTanggalKeluar" id="editTanggalKeluar" required>
+                        <input type="date" placeholder="Masukkan Tanggal Kas Keluar" class="form-control" name="editTanggalKeluar" id="editTanggalKeluar" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -205,7 +221,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-message"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Deskripsi" class="form-control" name="editDeskripsi" id="editDeskripsi" required>
+                        <input type="text" placeholder="Masukkan Deskripsi" class="form-control" name="editDeskripsi" id="editDeskripsi" required>
                     </div>
                 </div>
             </div>

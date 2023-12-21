@@ -71,7 +71,7 @@
                     $("#editJudulKegiatan").val(response.data.judul_konten);
                     $("#editIsiKonten").val(response.data.isi_konten);
                     $("#editTglRilisKonten").val(response.data.tgl_konten);
-                    $(".preview-foto-konten").click(function (e) { 
+                    $(".preview-gambar-kegiatan").click(function (e) { 
                         e.preventDefault();
                         if (response.data.gambar !== null) {
                             Swal.fire({
@@ -121,11 +121,16 @@
                         }
                     });
                 },
-                error: function (xhr, status, error) {
+                error: function (xhr) {
+                    var errors = xhr.responseJSON.errors;
                     Swal.fire({
                         icon: 'error',
                         title: 'Error!',
                         text: 'Terjadi kesalahan!'
+                    });
+                    $.each(errors, function (key, value) { 
+                        var errorHtml = '<span class="invalid-feedback" role="alert"><strong>' + value[0] + '</strong></span>';
+                        $('#' + key).addClass('is-invalid').parent().append(errorHtml);
                     });
                 }
             });

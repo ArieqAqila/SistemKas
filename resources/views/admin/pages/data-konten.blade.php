@@ -52,7 +52,7 @@
                 <td class="tagihan-konten">{{ $no++; }}</td>
                 <td class="tagihan-konten">{{ $item->judul_konten }}</td>
                 <td class="tagihan-konten">{{ $item->user->nama_user}}</td>
-                <td class="tagihan-konten">{{ $item->tgl_konten }}</td>
+                <td class="tagihan-konten">{{ DateHelper::formatDateIndonesia($item->tgl_konten) }}</td>
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $item->gambar }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
                 <td></td>
                 <td>
@@ -115,7 +115,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-font"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Judul Kegiatan" class="form-control" name="inJudulKegiatan" id="inJudulKegiatan" required>
+                        <input type="text" placeholder="Masukkan Judul Kegiatan" class="form-control" name="inJudulKegiatan" id="inJudulKegiatan" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -131,7 +131,7 @@
                 <div class="mb-3">
                     <label class="form-label">Isi Konten</label>
                     <div class="input-group">
-                        <textarea class="form-control" name="inIsiKonten" id="" cols="30" rows="10"></textarea>
+                        <textarea class="form-control" placeholder="Masukkan Isi dari Konten Kegiatan" name="inIsiKonten" id="inIsiKonten" cols="30" rows="10" required></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -167,7 +167,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" name="id_konten" id="id_konten" >
+                <input type="text" name="id_konten" id="id_konten" hidden>
                 <div class="mb-3">
 
                     <label class="form-label">Penulis Kegiatan</label>
@@ -176,7 +176,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Penulis Kegiatan" class="form-control" name="editPenulisKonten" id="editPenulisKonten" required disabled>
+                        <input type="text" placeholder="Masukkan Penulis Kegiatan" class="form-control" name="editPenulisKonten" id="editPenulisKonten" required disabled>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -188,16 +188,17 @@
                             <i class="fa-solid fa-font"></i>
                         </span>
 
-                        <input type="text" placeholder="Masukan Username Konten" class="form-control" name="editUsernameKonten" id="editUsernameKonten" required>
+                        <input type="text" placeholder="Masukkan Judul Kegiatan" class="form-control" name="editJudulKegiatan" id="editJudulKegiatan" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Gambar kegiatan (Thumbnail)</label>
+                    <button class="btn btn-admin-primary text-white mb-2 preview-gambar-kegiatan"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-regular fa-image"></i>
                         </span>
-                        <input type="text" placeholder="Masukan Password Konten" class="form-control" name="editPasswordKonten" id="editPasswordKonten">
+                        <input type="file" accept="image/*" placeholder="Masukkan Gambar dari Kegiatan" class="form-control" name="editGambarKegiatan" id="editGambarKegiatan">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -206,7 +207,7 @@
                         <span class="input-group-text">
                             #
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Konten" class="form-control" name="editTglLahirKonten" id="editTglLahirKonten" required>
+                         <textarea placeholder="Masukkan Isi dari Konten Kegiatan" class="form-control" name="editIsiKonten" id="editIsiKonten" cols="30" rows="10" required></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -215,7 +216,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="text" placeholder="Masukan No Telepon Konten" class="form-control" name="editNoTelpKonten" id="editNoTelpKonten" required>
+                        <input type="date" placeholder="Masukkan Tanggal Kegiatan" class="form-control" name="editTglRilisKonten" id="editTglRilisKonten" required>
                     </div>
                 </div>
 

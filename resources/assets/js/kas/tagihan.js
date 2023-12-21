@@ -12,7 +12,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#modal-tagihan').modal('hide');
+                $('#modal-tagihan').on('hidden.bs.modal');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,
@@ -27,12 +27,11 @@ $(document).ready(function () {
                     }
                 });
             },
-            error: function (xhr) {
-                var errors = xhr.responseJSON.errors;
+            error: function (response) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: 'Terjadi kesalahan!'
+                    text: response.responseJSON.message
                 });
                 $.each(errors, function (key, value) { 
                     var errorHtml = '<span class="invalid-feedback" role="alert"><strong>' + value[0] + '</strong></span>';
@@ -50,10 +49,10 @@ $(document).ready(function () {
             type: 'GET',
             cache: false,
             success: function(response) {
-                console.log(response);
                 $("#id_tagihan").val(response.data.id_tagihan);
-                $("#editNamaWarga").val(response.data.user.username);
+                $("#editNamaWarga").val(response.data.user.nama_user);
                 $("#editNominalTagihan").val(response.data.user.kategori.nominal_kategori);
+                $("#editNominalTertagih").val(response.data.nominal_tertagih);
                 $("#editNominalSumbangan").val(response.data.nominal_sumbangan);
                 $("#editTglTagihan").val(response.data.tgl_tagihan);
             }
@@ -76,7 +75,7 @@ $(document).ready(function () {
                 "X-HTTP-Method-Override": "PUT"
             },
             success: function (response) {
-                $("#modal-edit-tagihan").modal('hide');
+                $("#modal-edit-tagihan").on('hidden.bs.modal');
                 Swal.fire({
                     icon: 'success',
                     title: response.message,

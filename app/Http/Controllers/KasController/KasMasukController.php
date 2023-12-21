@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 class KasMasukController extends Controller
 {
@@ -28,7 +29,7 @@ class KasMasukController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNominalMasuk' => 'required|numeric|max:9',
+            'inNominalMasuk' => 'required|numeric|max:999999999',
             'inTanggalMasuk' => 'required|date',
             'inDeskripsi' => 'required',
         ]);
@@ -80,7 +81,7 @@ class KasMasukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_masuk' => 'required',
-            'editNominalMasuk' => 'required|numeric|max:9',
+            'editNominalMasuk' => 'required|numeric|max:999999999',
             'editTanggalMasuk' => 'required|date',
             'editDeskripsi' => 'required',
         ]);
@@ -126,7 +127,7 @@ class KasMasukController extends Controller
         if (!$kasMasuk) {
             return response()->json([
                 'success' => false,
-                'message' => 'Data warga tidak ditemukan!'
+                'message' => 'Data kas masuk tidak ditemukan!'
             ], 404);
         }
 
@@ -134,7 +135,7 @@ class KasMasukController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Data User berhasil dihapus!'
+            'message' => 'Data kas masuk berhasil dihapus!'
         ], 200);
     }
 
@@ -168,7 +169,8 @@ class KasMasukController extends Controller
         return $data;
     }
 
-    public function downloadLaporan(Request $request) {
+    public function downloadLaporan(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
@@ -193,5 +195,15 @@ class KasMasukController extends Controller
         $response->header('Content-Disposition', 'attachment; filename="Data Kas.csv"');
     
         return $response;
+    }
+
+    public function truncateTable()
+    {
+        KasMasuk::truncate();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reset data kas masuk berhasil!'
+        ], 200);
     }
 }

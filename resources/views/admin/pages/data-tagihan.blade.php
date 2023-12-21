@@ -48,8 +48,9 @@
             <tr>
                 <th>No.</th>
                 <th>Nama Warga</th>
-                <th>Tanggal Tagihan</th>
+                <th>Tenggat Tagihan</th>
                 <th>Nominal Tagihan</th>
+                <th>Nominal Tertagih</th>
                 <th>Nominal Sumbangan</th>
                 <th>Status</th>
                 @admin
@@ -64,39 +65,51 @@
                 //dd(date('Y-m'));
             @endphp
             @foreach ($warga as $tagihan_warga)
+
+            @php
+                $tanggalTagihan = Carbon\Carbon::create($tagihan_warga->tgl_tagihan)->format('m-y');
+                $tanggalSaatIni = Carbon\Carbon::now()->format('m-y');
+
+                $selisihBulan = Carbon\Carbon::createFromFormat('m-y', $tanggalSaatIni)
+                    ->diffInMonths(Carbon\Carbon::createFromFormat('m-y', $tanggalTagihan));
+
+                $nominalTagihan = $tanggalTagihan >= $tanggalSaatIni 
+                                    ? $tagihan_warga->kategori->nominal_kategori
+                                    : $tagihan_warga->kategori->nominal_kategori + ($selisihBulan * $tagihan_warga->kategori->nominal_kategori);
+            @endphp
+
                 <tr class="tagihan-warga" data-id-warga="{{ $tagihan_warga->id }}" data-nominal-tagihan="{{ $tagihan_warga->kategori->nominal_kategori }}">
-                    
                     @if ($tagihan_warga->tgl_tagihan === null || date_format(date_create($tagihan_warga->tgl_tagihan), 'Y-m') <= date('Y-m'))
                         <td>{{ $no++ }}</td>
                         <td>{{ $tagihan_warga->nama_user }}</td>
+                        <td>{{ $tagihan_warga->tgl_tagihan === null ? '#' : DateHelper::formatMonthIndonesia($tagihan_warga->tgl_tagihan) }}</td>
                         <td>
-                            @if ($tagihan_warga->tgl_tagihan === null)
-                                #
-                            @else
-                                {!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}
-                            @endif
+                            {{ Rupiah::format($tagihan_warga->tgl_tagihan === null ? $tagihan_warga->kategori->nominal_kategori : $tagihan) }}
                         </td>
-                        <td>Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
+                        <td>#</td>
                         <td>#</td>
                         <td>Belum Lunas</td>
                         @admin
                         <td class="action-button">
-                        @if ($tagihan_warga->id_tagihan === null)
-                        <span class="action-button table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span>
-                        @else
-                        <span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span>
-                        @endif
+                            <span class="action-button table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}">
+                                <i class="action-button fa-solid fa-user-pen text-admin-info"></i>
+                            </span>
                         </td>
                         @endadmin
                     @else
                         <td class="action-button">{{ $no++ }}</td>
                         <td class="action-button">{{ $tagihan_warga->nama_user }}</td>
-                        <td class="action-button">{!! date_format(date_create($tagihan_warga->tgl_tagihan), 'F Y') !!}</td>
-                        <td class="action-button">Rp{{ $tagihan_warga->kategori->nominal_kategori }}</td>
-                        <td class="action-button">Rp{{ $tagihan_warga->nominal_sumbangan }}</td>
-                        <td class="action-button">Lunas</td>
+                        <td class="action-button">{{ DateHelper::formatMonthIndonesia($tagihan_warga->tgl_tagihan) }}</td>
+                        <td class="action-button">{{ Rupiah::format($tagihan_warga->kategori->nominal_kategori) }}</td>
+                        <td class="action-button">{{ Rupiah::format($tagihan_warga->nominal_tertagih) }}</td>
+                        <td class="action-button">{{ Rupiah::format($tagihan_warga->nominal_sumbangan) }}</td>
+                        <td class="action-button">{{ $tagihan_warga->status_tagihan }}</td>
                         @admin
-                        <td class="action-button"><span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}"><i class="action-button fa-solid fa-user-pen text-admin-info"></i></span></td>
+                        <td class="action-button">
+                            <span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}">
+                                <i class="action-button fa-solid fa-user-pen text-admin-info"></i>
+                            </span>
+                        </td>
                         @endadmin
                     @endif
                 </tr>
@@ -106,8 +119,9 @@
             <tr>
                 <th>No.</th>
                 <th>Nama Warga</th>
-                <th>Tanggal Tagihan</th>
+                <th>Tenggat Tagihan</th>
                 <th>Nominal Tagihan</th>
+                <th>Nominal Tertagih</th>
                 <th>Nominal Sumbangan</th>
                 <th>Status</th>
                 @admin
@@ -145,7 +159,7 @@
                     <label class="form-label">Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
                         <input type="number" placeholder="-" class="form-control" name="inNominalTagihan" id="inNominalTagihan" required readonly>
                     </div>
@@ -154,15 +168,15 @@
                     <label class="form-label">Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="inNominalDibayar" id="inNominalDibayar" required>
+                        <input type="number" placeholder="Masukkan Nominal yang Dibayar" class="form-control" name="inNominalDibayar" id="inNominalDibayar" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Bayar Selama</label>
                     <div class="input-group">
-                        <input min="1" type="number" placeholder="Masukan Lamanya Tagihan" class="form-control" name="inTglTagihan" id="inTglTagihan" required>
+                        <input min="1" type="number" placeholder="Masukkan Lamanya Tagihan" class="form-control" name="inTglTagihan" id="inTglTagihan" required>
                         <span class="input-group-text">
                             Bulan
                         </span>
@@ -205,18 +219,27 @@
                     <label class="form-label">Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal Tagihan" class="form-control" name="editNominalTagihan" id="editNominalTagihan" required disabled>
+                        <input type="number" placeholder="Masukkan Nominal Tagihan" class="form-control" name="editNominalTagihan" id="editNominalTagihan" required readonly>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nominal Tertagih</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-rupiah-sign"></i>
+                        </span>
+                        <input type="number" placeholder="Masukkan Nominal yang Dibayar" class="form-control" name="editNominalTertagih" id="editNominalTertagih" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Nominal Sumbangan</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-rupiah-sign"></i>
                         </span>
-                        <input type="number" placeholder="Masukan Nominal yang Dibayar" class="form-control" name="editNominalSumbangan" id="editNominalSumbangan" required>
+                        <input type="number" placeholder="Masukkan Nominal yang Dibayar" class="form-control" name="editNominalSumbangan" id="editNominalSumbangan" disabled>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -225,7 +248,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Nominal Sumbangan" class="form-control" name="editTglTagihan" id="editTglTagihan" required>
+                        <input type="date" pattern="\d{2} \d{2} \d{4}" placeholder="Masukkan Nominal Sumbangan" class="form-control" name="editTglTagihan" id="editTglTagihan" required>
                     </div>
                 </div>
             </div>

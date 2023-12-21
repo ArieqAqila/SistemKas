@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 use App\Http\Controllers\UserController\WargaController;
 use App\Http\Controllers\UserController\PetugasController;
@@ -26,6 +27,9 @@ use App\Http\Controllers\KontenController;
 |
 */
 
+/* if (app()->isLocal()) {
+    URL::forceScheme('https');
+} */
 
 Route::middleware('guest')->group(function() {
     Route::get('/', function () {
@@ -40,9 +44,19 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::middleware('auth', 'hak_akses:warga')->group(function() {
-    Route::get('/warga', function () {
-        return view('warga/index');
-    })->name('dashboard-warga');
+    Route::get('/warga/reset-password', function () {
+        return view('warga/pages/reset-password');
+    })->name('reset-password');
+
+    Route::post('/warga/reset-password', [WargaController::class, 'resetPassword'])->name('reseting-password');
+});
+
+Route::middleware('auth', 'hak_akses:warga', 'is_first_login')->group(function() {
+    Route::get('/warga', [DashboardController::class, 'home'])->name('dashboard-warga');
+
+    Route::get('/warga/profile', function () {
+        return view('warga/pages/profile');
+    })->name('profile-warga');
 });
 
 Route::middleware('auth', 'hak_akses:petugas,admin')->group(function() {
@@ -92,6 +106,7 @@ Route::middleware('auth', 'hak_akses:admin')->group(function() {
     Route::get('/admin/kas-masuk/{kasMasuk}', [KasMasukController::class, 'edit'])->name('edit-kas-masuk');
     Route::put('/admin/kas-masuk/{kasMasuk}', [KasMasukController::class, 'update'])->name('update-kas-masuk');
     Route::delete('/admin/kas-masuk/{kasMasuk}', [KasMasukController::class, 'destroy'])->name('update-kas-masuk');
+    Route::post('/admin/kas-masuk/reset', [KasMasukController::class, 'truncateTable'])->name('truncate-kas-masuk');
     Route::post('/admin/kas-masuk/download', [KasMasukController::class, 'downloadLaporan'])->name('downloadLaporan-kas-masuk');
 
     Route::get('/admin/kas-keluar', [KasKeluarController::class, 'index'])->name('index-kas-keluar');
@@ -99,5 +114,6 @@ Route::middleware('auth', 'hak_akses:admin')->group(function() {
     Route::get('/admin/kas-keluar/{kasKeluar}', [KasKeluarController::class, 'edit'])->name('edit-kas-keluar');
     Route::put('/admin/kas-keluar/{kasKeluar}', [KasKeluarController::class, 'update'])->name('update-kas-keluar');
     Route::delete('/admin/kas-keluar/{kasKeluar}', [KasKeluarController::class, 'destroy'])->name('update-kas-keluar');
+    Route::post('/admin/kas-keluar/reset', [KasKeluarController::class, 'truncateTable'])->name('truncate-kas-masuk');
     Route::post('/admin/kas-keluar/download', [KasKeluarController::class, 'downloadLaporan'])->name('downloadLaporan-kas-keluar');
 }); 

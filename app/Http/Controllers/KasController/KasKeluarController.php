@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\KasController;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\DateHelper;
+
 use App\Models\KasKeluar;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Response;
 
 class KasKeluarController extends Controller
 {
@@ -138,34 +143,132 @@ class KasKeluarController extends Controller
         ], 200);
     }
 
-    private function generateCsvData($data_kas_keluar)
+    private function generateXlsxData($dataKasMasuk, $startDate, $endDate)
     {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getDefaultStyle()->getFont()->setName('Agency FB');
+        $spreadsheet->getDefaultStyle()->getFont()->setSize(12);
+        $sheet = $spreadsheet->getActiveSheet();
+
         $headers = [
-            'No.',
-            'Nominal Kas Keluar',
-            'Tanggal Kas Keluar',
-            'Deskripsi',
+            'A2' => 'Kas Keluar '. DateHelper::formatDateIndonesia($startDate) . ' Sampai ' . DateHelper::formatDateIndonesia($endDate),
+            'A4' => 'No.',
+            'B4' => 'Nominal Kas Keluar',
+            'C4' => 'Tanggal Kas Keluar',
+            'D4' => 'Deskripsi',
         ];
+
+        foreach ($headers as $cellRange => $label) {
+            $sheet->setCellValue($cellRange, $label);
+        
+            $sheet->getStyle($cellRange)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle($cellRange)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            
+            $sheet->getStyle($cellRange)->getFont()->setBold(true);
+        }
 
         $rows = [];
         $no = 1;
 
         // Add transaction data to each row
-        foreach ($data_kas_keluar as $item) {
+        foreach ($dataKasMasuk as $item) {
             $rowData = [
                 $no++,
                 $item->nominal_keluar,
-                $item->tgl_keluar,
+                DateHelper::formatDateIndonesia($item->tgl_keluar),
                 $item->deskripsi_keluar,
             ];
 
-            $rows[] = implode(',', $rowData);
+            $rows[] = $rowData;
+        }
+        $sheet->fromArray($rows, null, 'A7');
+
+        $lastDataRow = count($rows) + 6;
+
+        //display total
+        $totalRow = $lastDataRow + 2;
+        $sheet->setCellValue('A' . $totalRow, 'Total');
+        $sheet->setCellValue('B' . $totalRow, "=SUM(B7:B{$lastDataRow})");
+
+        //display date
+        $dateRow = $lastDataRow + 4;
+        $sheet->setCellValue('B' . $dateRow, 'Bekasi,……………………………..');
+
+        //display signature
+        $signatureRow = $lastDataRow + 6;
+        $sheet->setCellValue('C' . $signatureRow, 'Dibuat dan diserahkan oleh,');
+        $sheet->setCellValue('C' . $signatureRow + 6, '(.....................)');
+        $sheet->setCellValue('D' . $signatureRow, 'Diterima oleh,');
+        $sheet->setCellValue('D' . $signatureRow + 6, '(.....................)');
+
+
+
+        //Style and Format Section
+        $sheet->getStyle('B7:B' . $totalRow)->getNumberFormat()->setFormatCode('_([$Rp] * #,##0_);_([$Rp] * (#,##0);_([$Rp] * "-"_);_(@_)');
+        
+        $sheet->getStyle('A' . $totalRow . ':B' . $totalRow)->getFont()->setBold(true); //bold the total section
+
+        $sheet->getStyle('A2:D4')->getFont()->setBold(true); //Bold the headers
+
+        $sheet->getStyle('A2')->getFont()->setSize(16);//set the title font size
+        $sheet->getStyle('A4:D4')->getFont()->setSize(14); //set the headers font size to 16pt
+
+        //center the "no." cell
+        $sheet->getStyle('A7:A'. $lastDataRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        //center the signature cell
+        $sheet->getStyle('C'. $signatureRow .':D'. $signatureRow + 6)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        $border = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['rgb' => '0000000'], // Set color to match cell background color
+                ],
+            ],
+        ];
+        $sheet->getStyle('A2:D' . $totalRow)->applyFromArray($border);
+
+
+        $columnWidths = [
+            'A' => 45,
+            'B' => 150,
+            'C' => 175,
+            'D' => 200
+        ];
+
+        foreach ($columnWidths as $column => $width) {
+            $sheet->getColumnDimension($column)->setWidth($width, 'px');
+        }
+        
+
+        $theCells = [
+            'A2:D2',
+            'A3:D3',
+            'A4:A6',
+            'B4:B6',
+            'C4:C6',
+            'D4:D6',
+        ];
+        $sheet->setMergeCells($theCells);
+
+        foreach ($theCells as $cellRange) {
+            $sheet->getStyle($cellRange)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle($cellRange)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         }
 
-        // Combine headers and rows
-        $data = implode(',', $headers) . "\n" . implode("\n", $rows);
+        // Save the spreadsheet
+        $xlsxFilePath = 'kasKeluarMain.xlsx';
+        $writer = new Xlsx($spreadsheet);
 
-        return $data;
+        try {
+            $writer->save($xlsxFilePath);
+        } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
+
+            return null;
+        }
+
+        return $xlsxFilePath;
     }
 
     public function downloadLaporan(Request $request)
@@ -181,17 +284,24 @@ class KasKeluarController extends Controller
 
         $startDate = Carbon::parse($request->startDate)->startOfDay();
         $endDate = Carbon::parse($request->endDate)->endOfDay();
-        $data_kas_keluar = KasKeluar::whereBetween('tgl_keluar', [$startDate, $endDate])->get();
 
-        if ($data_kas_keluar->isEmpty()) {
+        $dataKasMasuk = KasKeluar::whereBetween('tgl_keluar', [$startDate, $endDate])->get();
+
+        if ($dataKasMasuk->isEmpty()) {
             return back()->withErrors(['message' => 'No data available']);
         }
 
-        $csvData = $this->generateCsvData($data_kas_keluar);
+        $xlsxData = $this->generateXlsxData($dataKasMasuk, $startDate, $endDate);
 
-        $response = Response::make($csvData);
-        $response->header('Content-Type', 'text/csv');
-        $response->header('Content-Disposition', 'attachment; filename="Data Kas.csv"');
+        if ($xlsxData === null) {
+            // Handle the case where saving the spreadsheet failed
+            return response()->json(['error' => 'Failed to generate XLSX file'], 500);
+        }
+
+        $response = response()->download($xlsxData, 'Laporan Kas Keluar '. DateHelper::formatDateIndonesia($startDate) . ' Sampai ' . DateHelper::formatDateIndonesia($endDate).'.xlsx', [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment',
+        ]);
     
         return $response;
     }

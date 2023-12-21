@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Response;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -289,8 +288,6 @@ class TagihanController extends Controller
 
         $sheet->getStyle('A7:A'. $lastDataRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        $sheet->getStyle('A7:G' . $lastDataRow)->getAlignment()->setIndent(5);
-
         $sheet->getStyle('B'. $signatureRow .':E'. $signatureRow + 6)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         $border = [
@@ -339,7 +336,7 @@ class TagihanController extends Controller
         }
 
         // Save the spreadsheet
-        $xlsxFilePath = 'your_file_path.xlsx';
+        $xlsxFilePath = 'tagihanMain.xlsx';
         $writer = new Xlsx($spreadsheet);
 
         try {

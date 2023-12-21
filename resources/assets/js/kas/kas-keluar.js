@@ -155,7 +155,7 @@ $(document).ready(function () {
         Swal.fire({
             icon: 'warning',
             title: 'Apakah anda yakin mau reset data kas keluar?',
-            text: 'PASTIKAN DATA KAS MASUK SUDAH DIBACKUP DENGAN CARA DIUNDUH TERLEBIH DAHULU!',
+            text: 'Pastikan Semua Laporan yang Diperlukan Sudah Terunduh!',
             showCancelButton: true,
             confirmButtonText: 'Ya',
             cancelButtonText: 'Tidak',

@@ -30,13 +30,13 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNamaWarga' => 'Required|max:35',
+            'inNamaWarga' => 'required|max:35',
             'inUsernameWarga' => 'required|unique:users,username|min:6|max:15',
             'inPasswordWarga' => 'required|min:6|max:12',
-            'inNoTelpWarga' => 'required|min:10|max:15',
+            'inNoTelpWarga' => 'nullable|min:10|max:15',
             'inAlamatWarga' => 'required',
-            'inFotoWarga' => 'required|image|max:10000',
-            'inTglLahirWarga' => 'required|date',
+            'inFotoWarga' => 'nullable|image|max:10000',
+            'inTglLahirWarga' => 'nullable|date',
             'inKategori' => 'required',
         ]);
 
@@ -117,11 +117,11 @@ class WargaController extends Controller
         $validator = Validator::make($request->all(), [
             'editNamaWarga' => 'required|max:35',
             'editUsernameWarga' => 'required|unique:users,username,'.$user->id_user.',id_user|min:6|max:15',
-            'editPasswordWarga' => 'min:6|max:12',
-            'editNoTelpWarga' => 'required|min:10|max:15',
+            'editPasswordWarga' => 'nullable|min:6|max:12',
+            'editNoTelpWarga' => 'nullable|min:10|max:15',
             'editAlamatWarga' => 'required|max:30',
-            'editFotoWarga' => 'image|max:10000',
-            'editTglLahirWarga' => 'required|date',
+            'editFotoWarga' => 'nullable|image|max:10000',
+            'editTglLahirWarga' => 'nullable|date',
             'editKategori' => 'required',
         ]);
 
@@ -183,11 +183,13 @@ class WargaController extends Controller
             ], 404);
         }
 
-        $foto_warga = 'images/Profile Warga/'.$user->foto_profile;
-		if(file_exists($foto_warga))
-		{
-		  unlink($foto_warga);
-		}
+        if ($user->foto_profile) {
+            $foto_warga = 'images/Profile Warga/'.$user->foto_profile;
+            if(file_exists($foto_warga))
+            {
+                unlink($foto_warga);
+            }
+        }
 
         $user->delete();
         return response()->json([
@@ -196,7 +198,10 @@ class WargaController extends Controller
         ], 200);
     }
 
-    function ResetPassword(Request $request) {
+    /**
+     * User password reset.
+     */
+    public function ResetPassword(Request $request) {
         $user = User::where('hak_akses', 'warga')->where('id_user', Auth::user()->id_user);
 
         if (!$user) {
@@ -242,5 +247,47 @@ class WargaController extends Controller
         $user->save();
 
         return redirect()->route('dashboard-warga');
+    }
+
+    /**
+     * User profile update/edit.
+     */
+    public function profileEdit(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'editUsername' => 'sometimes|min:6|max:15|unique:users,username',
+            'editNama' => 'sometimes|max:50',
+            'editTglLahir' => 'sometimes|date',
+            'editNoTelp' => 'sometimes|min:10|max:15',         
+            'editProfilePic' => 'sometimes|image|mimes:jpeg,jpg,png|max:10000'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::where('username', Auth::user()->username)->first();
+        $user->username = $request->editUsername ?? $user->username;
+        $user->nama_user = $request->editNama ?? $user->nama_user;
+        $user->tgl_lahir = $request->editTglLahir ?? $user->tgl_lahir;
+        $user->notelp = $request->editNoTelp ?? $user->notelp;
+
+        if ($request->hasFile('editProfilePic')){
+            $path = public_path()."\images\Profile Warga\\";
+
+            if ($user->foto_profile != null) {
+                $old_file = $path.$user->foto_profile;
+                unlink($old_file);
+            }
+
+            $file = $request->file('profilePic');
+            $extension = $file->getClientOriginalExtension();
+            $filename = md5(time()). '.' .$extension;
+            $file->move($path, $filename);
+            $user->foto_profile = $filename;
+        }
+
+        $user->update();
+
+        return back()->with('success', 'Biodata diperbarui!');
     }
 }

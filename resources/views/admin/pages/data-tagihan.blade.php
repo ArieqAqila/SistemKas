@@ -146,7 +146,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Nama Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Tagihan Kas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -165,7 +165,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal yang Dibayar</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal yang Dibayar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Bayar Selama</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Bayar Selama</label>
                     <div class="input-group">
                         <input min="1" type="number" placeholder="Masukkan Lamanya Tagihan" class="form-control" name="inTglTagihan" id="inTglTagihan" required>
                         <span class="input-group-text">
@@ -207,7 +207,7 @@
             <div class="modal-body">
                 <input type="text" name="id_tagihan" id="id_tagihan" hidden>
                 <div class="mb-3">
-                    <label class="form-label">Nama Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -216,7 +216,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Tagihan Kas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Tagihan Kas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Tertagih</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Tertagih</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Sumbangan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Sumbangan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Tagihan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Tagihan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>

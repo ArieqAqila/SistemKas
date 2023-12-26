@@ -108,7 +108,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Nama Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Password Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Lahir Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Lahir Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
@@ -144,16 +144,16 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">No Telepon Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>No Telepon Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
                         </span>
-                        <input type="number" placeholder="Masukan No Telepon Admin" class="form-control" name="inNoTelpAdmin" id="inNoTelpAdmin" minlength="10" maxlength="15">
+                        <input type="text" placeholder="Masukan No Telepon Admin" class="form-control" name="inNoTelpAdmin" id="inNoTelpAdmin" minlength="10" maxlength="15">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="inFotoProfile" class="form-label">Foto Admin</label>
+                    <label for="inFotoProfile" class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Foto Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-regular fa-image"></i>
@@ -196,7 +196,7 @@
             <div class="modal-body">
                 <input type="text" name="id_admin" id="id_admin" hidden>
                 <div class="mb-3">
-                    <label class="form-label">Nama Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Lahir Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Lahir Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
@@ -232,7 +232,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">No Telepon Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>No Telepon Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
@@ -241,7 +241,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Admin</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Admin</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>

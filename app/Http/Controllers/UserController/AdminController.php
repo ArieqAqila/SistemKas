@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'inNamaAdmin' => 'Required|max:35',
+            'inNamaAdmin' => 'required|max:35',
             'inUsernameAdmin' => 'required|unique:users,username|min:6|max:15',
             'inPasswordAdmin' => 'required|min:6|max:12',
             'inNoTelpAdmin' => 'required|min:10|max:15',
@@ -111,10 +111,10 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'editNamaAdmin' => 'required|max:35',
             'editUsernameAdmin' => 'required|unique:users,username,'.$user->id_user.',id_user|min:6|max:15',
-            'editPasswordAdmin' => 'min:6|max:12',
+            'editPasswordAdmin' => 'nullable|min:6|max:12',
             'editNoTelpAdmin' => 'required|min:10|max:15',
             'editAlamatAdmin' => 'required|max:30',
-            'editFotoAdmin' => 'image|max:10000',
+            'editFotoAdmin' => 'nullable|image|max:10000',
             'editTglLahirAdmin' => 'required|date'
         ]);
 

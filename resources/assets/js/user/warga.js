@@ -10,6 +10,11 @@ $(document).ready(function () {
         }
     });
 
+    $('#inNoTelpWarga, #editNoTelpWarga').on('input', function() {
+        // Remove non-numeric characters using a regular expression
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
     $('#form-tambah-warga').submit(function (e) { 
         e.preventDefault();
         var data_warga = new FormData($(this)[0])

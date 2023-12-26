@@ -9,6 +9,11 @@ const edit_btn = $('.btn-edit');
         }
     });
 
+    $('#inNoTelpAdmin #editNoTelpAdmin').on('input', function() {
+        // Remove non-numeric characters using a regular expression
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
     $('#form-tambah-admin').submit(function (e) { 
         e.preventDefault();
         var data_admin = new FormData($(this)[0])

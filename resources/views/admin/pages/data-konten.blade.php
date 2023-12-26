@@ -101,7 +101,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Penulis Kegiatan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Penulis Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Judul Kegiatan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Judul Kegiatan</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-font"></i>
@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Gambar Kegiatan(Thumbnail)</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Gambar Kegiatan(Thumbnail)</label>
                     <div class="input-group">
 
                         <span class="input-group-text">
@@ -129,13 +129,13 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Isi Konten</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Isi Konten</label>
                     <div class="input-group">
                         <textarea class="form-control" placeholder="Masukkan Isi dari Konten Kegiatan" name="inIsiKonten" id="inIsiKonten" cols="30" rows="10" required></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Konten Kegiatan Ditulis</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Konten Kegiatan Ditulis</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
@@ -170,7 +170,7 @@
                 <input type="text" name="id_konten" id="id_konten" hidden>
                 <div class="mb-3">
 
-                    <label class="form-label">Penulis Kegiatan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Penulis Kegiatan</label>
 
                     <div class="input-group">
                         <span class="input-group-text">
@@ -181,7 +181,7 @@
                 </div>
                 <div class="mb-3">
 
-                    <label class="form-label">Judul Kegiatan</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Judul Kegiatan</label>
 
                     <div class="input-group">
                         <span class="input-group-text">
@@ -192,7 +192,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Gambar kegiatan (Thumbnail)</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Gambar kegiatan (Thumbnail)</label>
                     <button class="btn btn-admin-primary text-white mb-2 preview-gambar-kegiatan"><i class="fa-solid fa-eye"></i> Lihat Foto</button>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Isi konten</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Isi konten</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             #
@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal konten kegiatan ditulis</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal konten kegiatan ditulis</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>

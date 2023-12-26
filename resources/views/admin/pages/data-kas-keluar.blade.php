@@ -146,7 +146,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Nominal Kas Keluar</label>
+                        <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Kas Keluar</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fa-solid fa-rupiah-sign"></i>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Tanggal Kas Keluar</label>
+                        <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Kas Keluar</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fa-solid fa-calendar"></i>
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Deskripsi</label>
+                        <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Deskripsi</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fa-solid fa-message"></i>
@@ -198,7 +198,7 @@
             <div class="modal-body">
                 <input type="text" name="id_keluar" id="id_keluar" hidden>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Kas Keluar</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>
@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Kas Keluar</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Tanggal Kas Keluar</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
@@ -216,7 +216,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Deskripsi</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Deskripsi</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-message"></i>

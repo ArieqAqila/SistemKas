@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
 
     delete_btn.on('click', function(){
-        id_keluar = $(this).data("id_keluar");
+        id_keluar = $(this).data("id-keluar");
 
         Swal.fire({
             icon: 'warning',

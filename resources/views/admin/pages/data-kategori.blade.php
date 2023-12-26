@@ -89,7 +89,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Nama Kategori</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Kategori</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-signature"></i>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nominal Kategori</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nominal Kategori</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-rupiah-sign"></i>

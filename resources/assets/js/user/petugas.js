@@ -10,6 +10,11 @@ $(document).ready(function () {
         }
     });
 
+    $('#inNoTelpPetugas, #editNoTelpPetugas').on('input', function() {
+        // Remove non-numeric characters using a regular expression
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
     $('#form-tambah-petugas').submit(function (e) { 
         e.preventDefault();
         var data_petugas = new FormData($(this)[0])

@@ -40,7 +40,7 @@ class DashboardController extends Controller
     /* Dashboard Warga */
     public function home()
     {
-        $kegiatan = Konten::with('user')->get();
+        $kegiatan = Konten::with('user')->paginate(12);
 
         return view('warga/pages/home', compact('kegiatan'));
     }

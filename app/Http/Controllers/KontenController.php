@@ -172,4 +172,13 @@ class KontenController extends Controller
             'message' => 'Data konten kegiatan berhasil dihapus!'
         ], 200);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function viewKegiatan(Konten $konten) {
+        
+        $konten->load('user');
+        return view('warga.pages.kegiatan', compact('konten'));
+    }
 }

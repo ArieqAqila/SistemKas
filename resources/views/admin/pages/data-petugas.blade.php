@@ -54,7 +54,13 @@
                 <td>{{ $user->nama_user }}</td>
                 <td>{{ $user->username }}</td>
                 <td><b>HIDDEN</b></td>
-                <td>{{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}</td>
+                <td class="tagihan-warga">
+                    @if ($user->tgl_lahir)
+                    {{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}
+                    @else
+                        <span class="fst-italic text-danger fw-semibold">NULL</span>
+                    @endif
+                </td>
                 <td>{{ $user->notelp }}</td>
                 <td>{{ $user->alamat }}</td>
                 <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye"></i> Lihat Foto</button></td>
@@ -108,7 +114,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Nama Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -117,7 +123,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -126,7 +132,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Password Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
@@ -140,11 +146,11 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Petugas" class="form-control" name="inTglLahirPetugas" id="inTglLahirPetugas" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Petugas" class="form-control" name="inTglLahirPetugas" id="inTglLahirPetugas">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">No Telepon Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>No Telepon Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
@@ -153,7 +159,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>
@@ -163,7 +169,7 @@
                 </div>
                 <div class="mb-3">
                     
-                    <label for="inFotoProfile" class="form-label">Foto Petugas</label>
+                    <label for="inFotoProfile" class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Foto Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-regular fa-image"></i>
@@ -197,7 +203,7 @@
             <div class="modal-body">
                 <input type="text" name="id_petugas" id="id_petugas" hidden>
                 <div class="mb-3">
-                    <label class="form-label">Nama Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -206,7 +212,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -229,11 +235,11 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Petugas" class="form-control" name="editTglLahirPetugas" id="editTglLahirPetugas" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Petugas" class="form-control" name="editTglLahirPetugas" id="editTglLahirPetugas">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">No Telepon Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>No Telepon Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
@@ -242,7 +248,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Petugas</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>

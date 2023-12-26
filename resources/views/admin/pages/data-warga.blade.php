@@ -56,11 +56,29 @@
                 <td class="tagihan-warga">{{ $user->nama_user }}</td>
                 <td class="tagihan-warga">{{ $user->username }}</td>
                 <td class="tagihan-warga"><b>HIDDEN</b></td>
-                <td class="tagihan-warga">{{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}</td>
-                <td class="tagihan-warga">{{ $user->notelp }}</td>
+                <td class="tagihan-warga">
+                    @if ($user->tgl_lahir)
+                    {{ DateHelper::formatDateIndonesia($user->tgl_lahir) }}
+                    @else
+                        <span class="fst-italic text-danger fw-semibold">NULL</span>
+                    @endif
+                </td>
+                <td class="tagihan-warga">
+                    @if ($user->notelp)
+                        {{ $user->notelp }}
+                    @else
+                        <span class="fst-italic text-danger fw-semibold">NULL</span>
+                    @endif
+                </td>
                 <td class="tagihan-warga">{{ $user->alamat }}</td>
                 <td class="tagihan-warga">{{ $user->kategori->nama_kategori }}</td>
-                <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
+                <td>
+                    @if ($user->foto_profile)
+                        <button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $user->foto_profile }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button>
+                    @else
+                        <span class="fst-italic text-danger fw-semibold">NULL</span>
+                    @endif
+                </td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-warga" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                     <span class="table-action btn btn-hapus" data-id-warga="{{ $user->id_user }}"><i class="fa-solid fa-user-xmark text-admin-danger"></i></i></span>
@@ -113,7 +131,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Nama Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -122,7 +140,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -131,7 +149,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Password Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-key"></i>
@@ -145,7 +163,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Warga" class="form-control" name="inTglLahirWarga" id="inTglLahirWarga" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Warga" class="form-control" name="inTglLahirWarga" id="inTglLahirWarga">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -158,7 +176,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>
@@ -167,7 +185,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Kategori</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Kategori</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>
@@ -186,7 +204,7 @@
                         <span class="input-group-text">
                             <i class="fa-regular fa-image"></i>
                         </span>
-                        <input type="file" accept="image/*" class="form-control" name="inFotoWarga" id="inFotoWarga" required>                                                
+                        <input type="file" accept="image/*" class="form-control" name="inFotoWarga" id="inFotoWarga">                                                
                     </div>
                 </div>
             </div>
@@ -215,7 +233,7 @@
             <div class="modal-body">
                 <input type="text" name="id_warga" id="id_warga" hidden>
                 <div class="mb-3">
-                    <label class="form-label">Nama Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Nama Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
@@ -224,7 +242,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Username Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-address-card"></i>
@@ -247,7 +265,7 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-                        <input type="date" placeholder="Masukan Tanggal Lahir Warga" class="form-control" name="editTglLahirWarga" id="editTglLahirWarga" required>
+                        <input type="date" placeholder="Masukan Tanggal Lahir Warga" class="form-control" name="editTglLahirWarga" id="editTglLahirWarga">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -256,11 +274,11 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-phone"></i>
                         </span>
-                        <input type="text" placeholder="Masukan No Telepon Warga" class="form-control" name="editNoTelpWarga" id="editNoTelpWarga" required>
+                        <input type="text" placeholder="Masukan No Telepon Warga" class="form-control" name="editNoTelpWarga" id="editNoTelpWarga">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat Warga</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Alamat Warga</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>
@@ -269,7 +287,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Kategori</label>
+                    <label class="form-label"><i class="fa-solid fa-asterisk me-1 text-danger"></i>Kategori</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-location-dot"></i>

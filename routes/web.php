@@ -57,6 +57,9 @@ Route::middleware('auth', 'hak_akses:warga', 'is_first_login')->group(function()
     Route::get('/warga/profile', function () {
         return view('warga/pages/profile');
     })->name('profile-warga');
+
+    Route::post('/warga/profile', [WargaController::class, 'profileEdit'])->name('profile-edit');
+    Route::get('/warga/kegiatan/{konten}', [KontenController::class, 'viewKegiatan'])->name('view-kegiatan');
 });
 
 Route::middleware('auth', 'hak_akses:petugas,admin')->group(function() {

@@ -27,5 +27,13 @@ class CustomDirectiveServiceProvider extends ServiceProvider
         Blade::directive('endadmin', function () {
             return '<?php endif; ?>';
         });
+
+        Blade::directive('warga', function () {
+            return "<?php if(auth()->check() && auth()->user()->hak_akses === 'warga'): ?>";
+        });
+
+        Blade::directive('endwarga', function () {
+            return '<?php endif; ?>';
+        });
     }
 }

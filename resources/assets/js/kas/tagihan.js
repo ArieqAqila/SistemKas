@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    const edit_btn = $('.btn-edit');
     var id_tagihan;
     
     $('#form-tagihan').submit(function (e) { 
@@ -41,22 +40,26 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_tagihan = $(this).data("id-tagihan");
+    function populateForm(data)
+    {
+        $("#id_tagihan").val(data.id_tagihan);
+        $("#editNamaWarga").val(data.user.nama_user);
+        $("#editNominalTagihan").val(data.user.kategori.nominal_kategori);
+        $("#editNominalTertagih").val(data.nominal_tertagih);
+        $("#editNominalSumbangan").val(data.nominal_sumbangan);
+        $("#editTglTagihan").val(data.tgl_tagihan);
+    }
+
+    $('#table-admin').on('click', '.btn-edit', function () {
+        const id_tagihan = $(this).data("id-tagihan");
 
         $.ajax({
             url: 'data-tagihan/' + id_tagihan,
             type: 'GET',
             cache: false,
-            success: function(response) {
-                $("#id_tagihan").val(response.data.id_tagihan);
-                $("#editNamaWarga").val(response.data.user.nama_user);
-                $("#editNominalTagihan").val(response.data.user.kategori.nominal_kategori);
-                $("#editNominalTertagih").val(response.data.nominal_tertagih);
-                $("#editNominalSumbangan").val(response.data.nominal_sumbangan);
-                $("#editTglTagihan").val(response.data.tgl_tagihan);
+            success: function (response) {
+                populateForm(response.data);
             }
-            
         });
     });
 

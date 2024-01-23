@@ -67,7 +67,7 @@ class AdminController extends Controller
         $admin->tgl_lahir = $request->inTglLahirAdmin;
         $admin->alamat = $request->inAlamatAdmin;
         $admin->hak_akses = 'admin';
-        $admin->is_first_login = true;
+        $admin->is_first_login = false;
         $admin->save();
 
         if ($admin) {

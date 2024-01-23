@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
     const reset_btn = $('.btn-reset');
     var id_keluar;
 
@@ -50,20 +48,75 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_keluar = $(this).data("id-keluar");
+    function populateForm(data)
+    {
+        $("#id_keluar").val(data.id_keluar);
+        $("#editNominalKeluar").val(data.nominal_keluar);
+        $("#editTanggalKeluar").val(data.tgl_keluar);
+        $("#editDeskripsi").val(data.deskripsi_keluar);
+    }
 
+    function deleteKasKeluar(id) {
         $.ajax({
-            url: 'kas-keluar/' + id_keluar,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_keluar").val(response.data.id_keluar);
-                $("#editNominalKeluar").val(response.data.nominal_keluar);
-                $("#editTanggalKeluar").val(response.data.tgl_keluar);
-                $("#editDeskripsi").val(response.data.deskripsi_keluar);
+            type: "DELETE",
+            url: "/admin/kas-keluar/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data kas keluar berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function () {
+                            Swal.showLoading();
+                        },
+                        willClose: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data kas keluar tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
             }
         });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+
+        const id_keluar = $(this).data("id-keluar");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'kas-keluar/' + id_keluar,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteKasKeluar(id_keluar);
+                }
+            });
+        }
     });
 
     $("#form-edit-kKeluar").submit(function (e) { 
@@ -103,51 +156,6 @@ $(document).ready(function () {
                     text: 'Terjadi kesalahan!'
                 });
             }
-        });
-    });
-
-    delete_btn.on('click', function(){
-        id_keluar = $(this).data("id-keluar");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/kas-keluar/" + id_keluar,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data kas keluar berhasil dihapus!',
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data kas keluar tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
         });
     });
 

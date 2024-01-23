@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
-    const preview_foto_btn = $('.preview-foto');
     var id_petugas;
 
     $.ajaxSetup({
@@ -55,39 +52,113 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_petugas = $(this).data("id-petugas");
-
-        $.ajax({
-            url: 'data-petugas/' + id_petugas,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_petugas").val(response.data.id_user);
-                $("#editNamaPetugas").val(response.data.nama_user);
-                $("#editUsernamePetugas").val(response.data.username);
-                $("#editPasswordPetugas").attr('placeholder', 'Password Tersembunyi(Hidden)!');
-                $("#editNoTelpPetugas").val(response.data.notelp);
-                $("#editTglLahirPetugas").val(response.data.tgl_lahir);
-                $("#editAlamatPetugas").val(response.data.alamat);
-                $(".preview-foto-petugas").click(function (e) { 
-                    e.preventDefault();
-                    if (response.data.foto_profile !== null) {
-                        Swal.fire({
-                            imageUrl: "/images/Profile Petugas/" + response.data.foto_profile,
-                            imageHeight: 400,
-                            imageAlt: 'Foto Profile'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Oops...',
-                            text: 'Foto profile tidak ditemukan',                            
-                        })
-                    }                                         
+    function populateForm(data)
+    {
+        $("#id_petugas").val(data.id_user);
+        $("#editNamaPetugas").val(data.nama_user);
+        $("#editUsernamePetugas").val(data.username);
+        $("#editPasswordPetugas").attr('placeholder', 'Password Tersembunyi(Hidden)!');
+        $("#editNoTelpPetugas").val(data.notelp);
+        $("#editTglLahirPetugas").val(data.tgl_lahir);
+        $("#editAlamatPetugas").val(data.alamat);
+        $("#editKategori").val(data.id_kategori);
+    
+        // Single event listener for preview-foto
+        $(".preview-foto-petugas").click(function (e) {
+            e.preventDefault();
+            if (data.foto_profile !== null) {
+                previewFoto("/images/Profile Petugas/" + data.foto_profile);
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Oops...',
+                    text: 'Foto profile tidak ditemukan',
                 });
             }
         });
+    }
+
+    function previewFoto(fotoUrl) {
+        if (fotoUrl !== null) {
+            Swal.fire({
+                imageUrl: fotoUrl,
+                imageHeight: 400,
+                imageAlt: 'Foto Profile'
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Oops...',
+                text: 'Foto profile tidak ditemukan',
+            });
+        }
+    }
+
+    function deletePetugas(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/data-petugas/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data petugas berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function () {
+                            Swal.showLoading();
+                        },
+                        willClose: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data petugas tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
+            }
+        });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus, .preview-foto', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+        var isPreview = $(this).hasClass('preview-foto');
+
+        const id_petugas = $(this).data("id-petugas");
+        const foto_profile = $(this).data("foto");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'data-petugas/' + id_petugas,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deletePetugas(id_petugas);
+                }
+            });
+        } else if (isPreview) {
+            previewFoto("/images/Profile Petugas/" + foto_profile);
+        }
     });
 
     $("#form-edit-petugas").submit(function (e) { 
@@ -133,68 +204,5 @@ $(document).ready(function () {
                 });
             }
         });
-    });
-
-    delete_btn.on('click', function(){
-        id_petugas = $(this).data("id-petugas");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/data-petugas/" + id_petugas,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data petugas berhasil dihapus!',
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data petugas tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
-        });
-    });
-
-    preview_foto_btn.on('click', function () {
-        var foto_profile = $(this).data("foto");
-
-        if (foto_profile !== null) {
-            Swal.fire({
-                imageUrl: "/images/Profile Petugas/" + foto_profile,
-                imageHeight: 400,
-                imageAlt: 'Foto Profile'
-            });
-        } else {
-            Swal.fire({
-                icon: 'info',
-                title: 'Oops...',
-                text: 'Foto profile tidak ditemukan',                            
-            })
-        }
     });
 });

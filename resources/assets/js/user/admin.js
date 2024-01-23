@@ -1,6 +1,3 @@
-const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
-    const preview_foto_btn = $('.preview-foto');
     var id_admin;
 
     $.ajaxSetup({
@@ -54,39 +51,113 @@ const edit_btn = $('.btn-edit');
         });
     });
 
-    edit_btn.on("click", function () {
-        id_admin = $(this).data("id-admin");
-
-        $.ajax({
-            url: 'data-admin/' + id_admin,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_admin").val(response.data.id_user);
-                $("#editNamaAdmin").val(response.data.nama_user);
-                $("#editUsernameAdmin").val(response.data.username);
-                $("#editPasswordAdmin").attr('placeholder', 'Password Tersembunyi(Hidden)!');
-                $("#editNoTelpAdmin").val(response.data.notelp);
-                $("#editTglLahirAdmin").val(response.data.tgl_lahir);
-                $("#editAlamatAdmin").val(response.data.alamat);
-                $(".preview-foto-admin").click(function (e) { 
-                    e.preventDefault();
-                    if (response.data.foto_profile !== null) {
-                        Swal.fire({
-                            imageUrl: "/images/Profile Admin/" + response.data.foto_profile,
-                            imageHeight: 400,
-                            imageAlt: 'Foto Profile'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Oops...',
-                            text: 'Foto profile tidak ditemukan',                            
-                        })
-                    }                                         
+    function populateForm(data)
+    {
+        $("#id_admin").val(data.id_user);
+        $("#editNamaAdmin").val(data.nama_user);
+        $("#editUsernameAdmin").val(data.username);
+        $("#editPasswordAdmin").attr('placeholder', 'Password Tersembunyi(Hidden)!');
+        $("#editNoTelpAdmin").val(data.notelp);
+        $("#editTglLahirAdmin").val(data.tgl_lahir);
+        $("#editAlamatAdmin").val(data.alamat);
+        $("#editKategori").val(data.id_kategori);
+    
+        // Single event listener for preview-foto
+        $(".preview-foto-admin").click(function (e) {
+            e.preventDefault();
+            if (data.foto_profile !== null) {
+                previewFoto("/images/Profile Admin/" + data.foto_profile);
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Oops...',
+                    text: 'Foto profile tidak ditemukan',
                 });
             }
         });
+    }
+
+    function previewFoto(fotoUrl) {
+        if (fotoUrl !== null) {
+            Swal.fire({
+                imageUrl: fotoUrl,
+                imageHeight: 400,
+                imageAlt: 'Foto Profile'
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Oops...',
+                text: 'Foto profile tidak ditemukan',
+            });
+        }
+    }
+
+    function deleteAdmin(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/data-admin/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data admin berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function () {
+                            Swal.showLoading();
+                        },
+                        willClose: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data admin tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
+            }
+        });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus, .preview-foto', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+        var isPreview = $(this).hasClass('preview-foto');
+
+        const id_admin = $(this).data("id-admin");
+        const foto_profile = $(this).data("foto");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'data-admin/' + id_admin,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteAdmin(id_admin);
+                }
+            });
+        } else if (isPreview) {
+            previewFoto("/images/Profile Admin/" + foto_profile);
+        }
     });
 
     $("#form-edit-admin").submit(function (e) { 
@@ -132,67 +203,4 @@ const edit_btn = $('.btn-edit');
                 });
             }
         });
-    });
-
-    delete_btn.on('click', function(){
-        id_admin = $(this).data("id-admin");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/data-admin/" + id_admin,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data admin berhasil dihapus!',
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data admin tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
-        });
-    });
-
-    preview_foto_btn.on('click', function () {
-        var foto_profile = $(this).data("foto");
-
-        if (foto_profile !== null) {
-            Swal.fire({
-                imageUrl: "/images/Profile Admin/" + foto_profile,
-                imageHeight: 400,
-                imageAlt: 'Foto Profile'
-            });
-        } else {
-            Swal.fire({
-                icon: 'info',
-                title: 'Oops...',
-                text: 'Foto profile tidak ditemukan',                            
-            })
-        }
     });

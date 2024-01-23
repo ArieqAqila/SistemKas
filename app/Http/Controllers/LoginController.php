@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login(Request $request) {
+    public function loginPage()
+    {
+        return view('login');
+    }
+
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'username' => 'required|exists:users,username|min:6|max:15',
             'password' => 'required|min:6|max:15',

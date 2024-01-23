@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
-    const preview_foto_btn = $('.preview-foto');
     var id_warga;
 
     $.ajaxSetup({
@@ -55,40 +51,113 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_warga = $(this).data("id-warga");
-
-        $.ajax({
-            url: 'data-warga/' + id_warga,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_warga").val(response.data.id_user);
-                $("#editNamaWarga").val(response.data.nama_user);
-                $("#editUsernameWarga").val(response.data.username);
-                $("#editPasswordWarga").attr('placeholder', 'Password Tersembunyi(Hidden)!');
-                $("#editNoTelpWarga").val(response.data.notelp);
-                $("#editTglLahirWarga").val(response.data.tgl_lahir);
-                $("#editAlamatWarga").val(response.data.alamat);
-                $("#editKategori").val(response.data.id_kategori);
-                $(".preview-foto-warga").click(function (e) { 
-                    e.preventDefault();
-                    if (response.data.foto_profile !== null) {
-                        Swal.fire({
-                            imageUrl: "/images/Profile Warga/" + response.data.foto_profile,
-                            imageHeight: 400,
-                            imageAlt: 'Foto Profile'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Oops...',
-                            text: 'Foto profile tidak ditemukan',                            
-                        })
-                    }                                         
+    function populateForm(data)
+    {
+        $("#id_warga").val(data.id_user);
+        $("#editNamaWarga").val(data.nama_user);
+        $("#editUsernameWarga").val(data.username);
+        $("#editPasswordWarga").attr('placeholder', 'Password Tersembunyi(Hidden)!');
+        $("#editNoTelpWarga").val(data.notelp);
+        $("#editTglLahirWarga").val(data.tgl_lahir);
+        $("#editAlamatWarga").val(data.alamat);
+        $("#editKategori").val(data.id_kategori);
+    
+        // Single event listener for preview-foto
+        $(".preview-foto-warga").click(function (e) {
+            e.preventDefault();
+            if (data.foto_profile !== null) {
+                previewFoto("/images/Profile Warga/" + data.foto_profile);
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Oops...',
+                    text: 'Foto profile tidak ditemukan',
                 });
             }
         });
+    }
+
+    function previewFoto(fotoUrl) {
+        if (fotoUrl !== null) {
+            Swal.fire({
+                imageUrl: fotoUrl,
+                imageHeight: 400,
+                imageAlt: 'Foto Profile'
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Oops...',
+                text: 'Foto profile tidak ditemukan',
+            });
+        }
+    }
+
+    function deleteWarga(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/data-warga/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data warga berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function () {
+                            Swal.showLoading();
+                        },
+                        willClose: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data warga tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
+            }
+        });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus, .preview-foto', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+        var isPreview = $(this).hasClass('preview-foto');
+
+        const id_warga = $(this).data("id-warga");
+        const foto_profile = $(this).data("foto");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'data-warga/' + id_warga,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteWarga(id_warga);
+                }
+            });
+        } else if (isPreview) {
+            previewFoto("/images/Profile Warga/" + foto_profile);
+        }
     });
 
     $("#form-edit-warga").submit(function (e) { 
@@ -135,67 +204,3 @@ $(document).ready(function () {
             }
         });
     });
-
-    delete_btn.on('click', function(){
-        id_warga = $(this).data("id-warga");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/data-warga/" + id_warga,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data warga berhasil dihapus!',
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data warga tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
-        });
-    });
-
-    preview_foto_btn.on('click', function () {
-        var foto_profile = $(this).data("foto");
-
-        if (foto_profile !== null) {
-            Swal.fire({
-                imageUrl: "/images/Profile Warga/" + foto_profile,
-                imageHeight: 400,
-                imageAlt: 'Foto Profile'
-            });
-        } else {
-            Swal.fire({
-                icon: 'info',
-                title: 'Oops...',
-                text: 'Foto profile tidak ditemukan',                            
-            })
-        }
-    });
-});

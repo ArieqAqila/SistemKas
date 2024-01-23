@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
     var id_kategori;
 
     $.ajaxSetup({
@@ -49,19 +47,74 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_kategori = $(this).data("id-kategori");
+    function populateForm(data)
+    {
+        $("#id_kategori").val(data.id_kategori);
+        $("#editNamaKategori").val(data.nama_kategori);
+        $("#editNominalKategori").val(data.nominal_kategori);
+    }
 
+    function deleteKategori(id) {
         $.ajax({
-            url: 'data-kategori/' + id_kategori,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_kategori").val(response.data.id_kategori);
-                $("#editNamaKategori").val(response.data.nama_kategori);
-                $("#editNominalKategori").val(response.data.nominal_kategori);
+            type: "DELETE",
+            url: "/admin/data-kategori/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data kas kategori berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function() {
+                            Swal.showLoading();
+                        },
+                        willClose: function() {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data kas kategori tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
             }
         });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus, .preview-foto', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+
+        const id_kategori = $(this).data("id-kategori");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'data-kategori/' + id_kategori,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteKategori(id_kategori);
+                }
+            });
+        }
     });
 
     $("#form-edit-kategori").submit(function (e) { 
@@ -106,51 +159,6 @@ $(document).ready(function () {
                     $('#' + key).addClass('is-invalid').parent().append(errorHtml);
                 });
             }
-        });
-    });
-
-    delete_btn.on('click', function(){
-        id_kategori = $(this).data("id_kategori");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/data-kategori/" + id_kategori,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data kas kategori berhasil dihapus!',
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data kas kategori tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
         });
     });
 });

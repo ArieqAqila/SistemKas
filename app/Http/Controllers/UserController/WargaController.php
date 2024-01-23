@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use App\Models\Kategori;
+use App\Models\KasMasuk;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -71,7 +74,7 @@ class WargaController extends Controller
         $warga->tgl_lahir = $request->inTglLahirWarga;
         $warga->alamat = $request->inAlamatWarga;
         $warga->hak_akses = 'warga';
-        $warga->is_first_login = true;
+        $warga->is_first_login = true; 
         
         $warga->id_kategori = $request->inKategori;
         $warga->save();
@@ -201,7 +204,14 @@ class WargaController extends Controller
     /**
      * User password reset.
      */
-    public function ResetPassword(Request $request) {
+
+    public function resetPasswordPage()
+    {
+        return view('warga.pages.reset-password');
+    }
+
+    public function ResetPassword(Request $request)
+    {
         $user = User::where('hak_akses', 'warga')->where('id_user', Auth::user()->id_user);
 
         if (!$user) {
@@ -252,6 +262,12 @@ class WargaController extends Controller
     /**
      * User profile update/edit.
      */
+
+    public function profileEditPage()
+    {
+        return view('warga.pages.profile');
+    }
+
     public function profileEdit(Request $request) {
         $validator = Validator::make($request->all(), [
             'editUsername' => 'sometimes|min:6|max:15|unique:users,username',
@@ -279,14 +295,23 @@ class WargaController extends Controller
                 unlink($old_file);
             }
 
-            $file = $request->file('profilePic');
+            $file = $request->file('editProfilePic');
             $extension = $file->getClientOriginalExtension();
             $filename = md5(time()). '.' .$extension;
             $file->move($path, $filename);
             $user->foto_profile = $filename;
         }
 
+        $kas_masuk = KasMasuk::where('deskripsi_masuk', 'Tagihan Kas '.Auth::user()->username)
+                ->latest('id_masuk')
+                ->first();
+
         $user->update();
+
+        if ($user->wasChanged('username') && $kas_masuk) {
+            $kas_masuk->deskripsi_masuk = 'Tagihan Kas '.$user->username;
+            $kas_masuk->update();
+        }
 
         return back()->with('success', 'Biodata diperbarui!');
     }

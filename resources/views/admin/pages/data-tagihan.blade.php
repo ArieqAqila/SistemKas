@@ -84,16 +84,20 @@
                         <td>{{ $tagihan_warga->nama_user }}</td>
                         <td>{{ $tagihan_warga->tgl_tagihan === null ? '#' : DateHelper::formatMonthIndonesia($tagihan_warga->tgl_tagihan) }}</td>
                         <td>
-                            {{ Rupiah::format($tagihan_warga->tgl_tagihan === null ? $tagihan_warga->kategori->nominal_kategori : $tagihan) }}
+                            {{ Rupiah::format($tagihan_warga->tgl_tagihan === null ? $tagihan_warga->kategori->nominal_kategori : $nominalTagihan) }}
                         </td>
                         <td>#</td>
                         <td>#</td>
                         <td>Belum Lunas</td>
                         @admin
                         <td class="action-button">
-                            <span class="action-button table-action btn btn-edit mb-1 disabled" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}">
+                            @if (!$tagihan_warga->tagihan)
+                                <span class="fst-italic text-danger">NULL</span>
+                            @else
+                            <span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}">
                                 <i class="action-button fa-solid fa-user-pen text-admin-info"></i>
                             </span>
+                            @endif
                         </td>
                         @endadmin
                     @else
@@ -103,7 +107,7 @@
                         <td class="action-button">{{ Rupiah::format($tagihan_warga->kategori->nominal_kategori) }}</td>
                         <td class="action-button">{{ Rupiah::format($tagihan_warga->nominal_tertagih) }}</td>
                         <td class="action-button">{{ Rupiah::format($tagihan_warga->nominal_sumbangan) }}</td>
-                        <td class="action-button">{{ $tagihan_warga->status_tagihan }}</td>
+                        <td class="action-button">Sudah {{ $tagihan_warga->status_tagihan }}</td>
                         @admin
                         <td class="action-button">
                             <span class="action-button table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-tagihan" data-id-tagihan="{{ $tagihan_warga->id_tagihan }}">

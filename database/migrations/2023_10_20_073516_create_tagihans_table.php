@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tagihan', function (Blueprint $table) {
             $table->increments('id_tagihan');
             $table->unsignedInteger('id_user');
+            $table->integer('nominal_tertagih');
             $table->integer('nominal_sumbangan')->nullable();
             $table->string('status_tagihan', 11);
             $table->date('tgl_tagihan');

@@ -7,7 +7,7 @@
 @php
     $date = Auth::user()->tgl_lahir;
     $user = Auth::user();
-    if ($user->tagihan->status_tagihan === "Belum Lunas") {
+    if (!$user->tagihan || $user->tagihan->status_tagihan === "Belum Lunas") {
       $icon = "fa-solid fa-circle-xmark me-2";
       $deskripsi = "Belum Membayar Iuran Kas Bulan Ini!";
       $bgBody = "bg-danger";
@@ -165,12 +165,22 @@
 <div class="row row-cols-1 row-cols-lg-2 flex-column flex-lg-row justify-content-lg-between">
     <div class="col-lg-3 mt-3 mt-lg-0">
         <div class="mt-5 mt-md-0">
-            <a href="#" class="status-warga mt-4 {{ $bgBody }}">
-                <img src="{{asset('images/Profile Warga/'.Auth::user()->foto_profile)}}" alt="Profile Image Admin" class="profile-warga ms-4 me-3">
+            <a href="{{ route('profile-warga') }}" class="status-warga mt-4 {{ $bgBody }}">
+                @if ($user->foto_profile === NULL)
+                <span class="profile-warga ms-4 me-3 text-white overflow-hidden d-flex justify-content-center align-items-center fs-4 fw-semibold">
+                  {!! strtoupper(substr($user->nama_user, 0, 2)) !!}
+                </span>
                 <div class="d-flex flex-column text-white">
                   <span class="fs-5 fw-semibold"><i class="{{ $icon }}"></i> {{ Auth::user()->nama_user }}</span>
                   <span>{{ $deskripsi }}</span>
                 </div>
+                @else
+                  <img src="{{asset('images/Profile Warga/'.Auth::user()->foto_profile)}}" alt="Profile Image Admin" class="profile-warga ms-4 me-3">
+                  <div class="d-flex flex-column text-white">
+                    <span class="fs-5 fw-semibold"><i class="{{ $icon }}"></i> {{ Auth::user()->nama_user }}</span>
+                    <span>{{ $deskripsi }}</span>
+                  </div>
+                @endif
             </a>
         </div>
     </div>
@@ -184,7 +194,7 @@
                 <div class="col-lg-4">
                     <form action="{{ route('profile-edit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="m-3 p-3 bg-white rounded-3 border border-gray-500 shadow-sm">
+                    <div class="m-3 p-3 bg-white rounded-3 border border-gray-500 shadow-sm text-center">
                         @if (Auth::user()->foto_profile == null)
                             <span id="txtImage">Tidak ada foto profile.</span>
                             <img src="" alt="Your Profile" id="previewImage" class="img-fluid" style="max-height: 300px;" hidden>

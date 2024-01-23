@@ -30,9 +30,10 @@
 </head>
 <body>
   @php
-      $prefix = Auth::user()->hak_akses === 'admin'
-                ? 'Profile Admin'
-                : 'Profile Petugas'
+    date_default_timezone_set('Asia/Jakarta');
+    $prefix = Auth::user()->hak_akses === 'admin'
+              ? 'Profile Admin'
+              : 'Profile Petugas'
   @endphp
   <div class="wrapper navbar">
     <div class="top-navbar">
@@ -46,8 +47,8 @@
               <span>Welcome to eRTe 3 Admin!</span>
             </div>
             <div class="topbar-caption">
-              08:00 WIB
-              <span>18 Desember 2023</span>
+              <h5 id="clock" class="m-0 p-0"></h5>
+              <span>{{ app\Helpers\DateHelper::formatDateIndonesia(now()) }}</span>
             </div>
           </div>
     </div>
@@ -112,5 +113,20 @@
   @yield('modal-edit')
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var clock = document.getElementById('clock');
+
+    function time() {
+      var d = new Date();
+      var s = d.getSeconds();
+      var m = d.getMinutes();
+      var h = d.getHours();
+      clock.textContent = 
+        ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + " WIB";
+    }
+
+    setInterval(time, 1000);
+  </script>
 </body>
 </html>

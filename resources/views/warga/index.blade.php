@@ -38,33 +38,29 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        @warga
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard-warga') }}">
                   Home
                 </a>
             </li>
-            <li class="nav-item dropdown mx-lg-3">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Kas
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Kas Masuk</a></li>
-                <li><a class="dropdown-item" href="#">Kas Keluar</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Riwayat Saldo Kas</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="">
-                  Kegiatan
-                </a>
+            <li class="nav-item mx-lg-3">
+              <a class="nav-link" href="{{ route('riwayat-saldo') }}">Riwayat Saldo Kas</a>
             </li>
         </ul>
         <div class="d-flex me-3">
           <a href="{{ route('profile-edit') }}" class="btn btn-outline-info me-3" id="click">Profile</a>
           <a href="{{ route('logout') }}" class="btn btn-outline-danger" id="click">Logout</a>
         </div>
+        @endwarga
+        
+        @admin
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+        <div class="d-flex me-3">
+          <a href="{{ route('index-konten') }}" class="btn btn-outline-info me-3" id="click">Kembali</a>
+        </div>
+        @endadmin
       </div>
     </div>
   </nav>

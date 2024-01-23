@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    const edit_btn = $('.btn-edit');
-    const delete_btn = $('.btn-hapus');
     const reset_btn = $('.btn-reset');
     var id_masuk;
 
@@ -50,20 +48,75 @@ $(document).ready(function () {
         });
     });
 
-    edit_btn.on("click", function () {
-        id_masuk = $(this).data("id-masuk");
+    function populateForm(data)
+    {
+        $("#id_masuk").val(data.id_masuk);
+        $("#editNominalMasuk").val(data.nominal_masuk);
+        $("#editTanggalMasuk").val(data.tgl_masuk);
+        $("#editDeskripsi").val(data.deskripsi_masuk);
+    }
 
+    function deleteKasMasuk(id) {
         $.ajax({
-            url: 'kas-masuk/' + id_masuk,
-            type: 'GET',
-            cache: false,
-            success: function(response) {
-                $("#id_masuk").val(response.data.id_masuk);
-                $("#editNominalMasuk").val(response.data.nominal_masuk);
-                $("#editTanggalMasuk").val(response.data.tgl_masuk);
-                $("#editDeskripsi").val(response.data.deskripsi_masuk);
+            type: "DELETE",
+            url: "/admin/kas-masuk/" + id,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data kas masuk berhasil dihapus!',
+                        text: 'Memuat ulang halaman website...',
+                        timer: 2100,
+                        timerProgressBar: true,
+                        didOpen: function () {
+                            Swal.showLoading();
+                        },
+                        willClose: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Data kas masuk tidak ditemukan!',
+                        timer: 2100,
+                        timerProgressBar: true,
+                    });
+                }
             }
         });
+    }
+
+    $('#table-admin').on('click', '.btn-edit, .btn-hapus', function () {
+        var isEdit = $(this).hasClass('btn-edit');
+        var isDelete = $(this).hasClass('btn-hapus');
+
+        const id_masuk = $(this).data("id-masuk");
+
+        if (isEdit) {
+            $.ajax({
+                url: 'kas-masuk/' + id_masuk,
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    populateForm(response.data);
+                }
+            });
+        } else if (isDelete) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah anda yakin mau menghapus data ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteKasMasuk(id_masuk);
+                }
+            });
+        }
     });
 
     $("#form-edit-kMasuk").submit(function (e) { 
@@ -103,51 +156,6 @@ $(document).ready(function () {
                     text: 'Terjadi kesalahan!'
                 });
             }
-        });
-    });
-
-    delete_btn.on('click', function(){
-        id_masuk = $(this).data("id-masuk");
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Apakah anda yakin mau menghapus data ini?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/kas-masuk/" + id_masuk,
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: response.message,
-                                    text: 'Memuat ulang halaman website...',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                    didOpen: function() {
-                                        Swal.showLoading();
-                                    },
-                                    willClose: function() {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Data kas masuk tidak ditemukan!',
-                                    timer: 2100,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    });
-                }
         });
     });
 

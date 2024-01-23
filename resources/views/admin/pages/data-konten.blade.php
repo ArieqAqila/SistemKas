@@ -53,8 +53,10 @@
                 <td class="tagihan-konten">{{ $item->judul_konten }}</td>
                 <td class="tagihan-konten">{{ $item->user->nama_user}}</td>
                 <td class="tagihan-konten">{{ DateHelper::formatDateIndonesia($item->tgl_konten) }}</td>
-                <td><button class="btn btn-admin-primary sk-fs text-white mb-2 preview-foto" data-foto="{{ $item->gambar }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
-                <td></td>
+                <td><button class="btn btn-admin-primary sk-fs text-white preview-foto" data-foto="{{ $item->gambar }}"><i class="fa-solid fa-eye me-1"></i> Lihat</button></td>
+                <td>
+                    <a href="{{ route('view-kegiatan', $item->id_konten) }}" class="btn btn-admin-primary sk-fs text-white"><i class="fa-solid fa-eye me-1"></i> Lihat</button></a>
+                </td>
                 <td>
                     <span class="table-action btn btn-edit mb-1" data-bs-toggle="modal" data-bs-target="#modal-edit-konten" data-id-konten="{{ $item->id_konten }}"><i class="fa-solid fa-user-pen text-admin-info"></i></span>
                     <span class="table-action btn btn-hapus" data-id-konten="{{ $item->id_konten }}"><i class="fa-solid fa-trash text-admin-danger"></i></span>

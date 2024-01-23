@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\KasKeluar;
 use App\Models\KasMasuk;
-use App\Models\Tagihan;
 use App\Models\Konten;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +38,7 @@ class DashboardController extends Controller
     /* Dashboard Warga */
     public function home()
     {
-        $kegiatan = Konten::with('user')->paginate(12);
+        $kegiatan = Konten::with('user')->latest('tgl_konten')->paginate(12);
 
         return view('warga/pages/home', compact('kegiatan'));
     }

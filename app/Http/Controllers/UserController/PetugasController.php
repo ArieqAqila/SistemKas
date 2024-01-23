@@ -68,7 +68,7 @@ class PetugasController extends Controller
         $petugas->tgl_lahir = $request->inTglLahirPetugas;
         $petugas->alamat = $request->inAlamatPetugas;
         $petugas->hak_akses = 'petugas';
-        $petugas->is_first_login = true;
+        $petugas->is_first_login = false;
         $petugas->save();
 
         if ($petugas) {

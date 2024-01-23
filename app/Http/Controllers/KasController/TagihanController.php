@@ -139,8 +139,8 @@ class TagihanController extends Controller
             $tagihanWarga = $tagihan_warga->user->kategori->nominal_kategori;
     
             $tagihanWarga = $tanggalTagihan >= $tanggalSaatIni 
-                            ? $tagihanWarga 
-                            : $selisihBulan * $tagihanWarga;
+                            ? $selisihBulan * $tagihanWarga
+                            : $tagihanWarga;
             
             $tagihan_warga->user->kategori->nominal_kategori = $tagihanWarga;
         }
@@ -174,6 +174,14 @@ class TagihanController extends Controller
                 'success' => false,
                 'message' => 'Data tagihan tidak valid!',
                 'errors' => $validator->errors()
+            ], 422);
+        }
+
+        if ($request->editNominalTertagih < $request->editNominalTagihan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Nominal tertagih tidak cukup',
+                'errors' => ['inNominalDibayar' => ['Nominal yang dibayar kurang!']],
             ], 422);
         }
     
